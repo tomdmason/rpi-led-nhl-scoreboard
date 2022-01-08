@@ -1,144 +1,13 @@
 from PIL import Image, ImageDraw, ImageFont
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
-from datetime import datetime, timezone
-import requests
-import json
+from datetime import datetime
 import time
 import math
+from util import imageUtil, timeUtil
+from api.nhlService import NhlService
 
-def getTeamData():
-    """Get team names and abreviations from the NHL API, return information as a list of dictionaries.
 
-    Returns:
-        teams (list of dictionaries): Each dict contains the longform name and abbreviation of a single NHL team.
-    """
-    
-    # Call the NHL Teams API. Store as a JSON object.
-    teamsResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/teams")
-    teamsJson = teamsResponse.json()
-
-    # Decalare an empty list to hold the team dicts.
-    teams = []
-
-    # For each team, build a dict recording it's name and abbreviation. Append this to the end of the teams list.
-    for team in teamsJson['teams']:
-        teamDict = {
-                'Team Name': team['name'],
-                'Team Abbreviation': team['abbreviation']
-        }
-        # Append dict to the end of the teams list.
-        teams.append(teamDict)
-    
-    return teams
-
-def getGameData(teams):
-    """Get game data for all of todays games from the NHL API, returns games as a list of dictionaries.
-
-    Args:
-        teams (list of dictionaries): Team names and abberivations. Needed as the game API doen't return team abbreviations.
-
-    Returns:
-        games (list of dictionaries): All game info needed to display on scoreboard. Teams, scores, start times, game clock, etc.
-    """
-
-    # Call the NHL API for today's game info. Save the rsult as a JSON object.
-    gamesResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.linescore")
-    gamesJson = gamesResponse.json()
-
-    # Decalare an empty list to hold the games dicts.
-    games = []
-
-    # For each game, build a dict recording it's information. Append this to the end of the teams list.
-    if gamesJson['dates']: # If games today.
-        for game in gamesJson['dates'][0]['games']:
-
-            # Prep the period data for consistancy. This data doesn't exist in the API responce until game begins.
-            if 'linescore' in game and 'currentPeriodOrdinal' in game['linescore']:
-                perName = game['linescore']['currentPeriodOrdinal']
-                perTimeRem = game['linescore']['currentPeriodTimeRemaining']
-            else:
-                perName = "Not Started"
-                perTimeRem = "Not Started"
-
-            # Prep the dict data.
-            gameDict = {
-                'Game ID': game['gamePk'],
-                'Home Team': game['teams']['home']['team']['name'],
-                # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                'Home Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['home']['team']['name']][0],
-                'Away Team': game['teams']['away']['team']['name'],
-                 # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                'Away Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['away']['team']['name']][0],
-                'Home Score': game['teams']['home']['score'],
-                'Away Score': game['teams']['away']['score'],
-                'Start Time UTC':  datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ'), # Extracts the startime from what's given by the API.
-                'Start Time Local': utcToLocal(datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ')), # Converts the UTC start time to the RPi's local timezone.
-                'Status': game['status']['abstractGameState'],
-                'Detailed Status': game['status']['detailedState'],
-                'Period Number': game['linescore']['currentPeriod'],
-                'Period Name': perName,
-                'Period Time Remaining': perTimeRem
-            }
-
-            # Append the dict to the games list.
-            games.append(gameDict)
-
-            # Sort list by Game ID. Ensures order doesn't cahnge as games end.
-            games.sort(key=lambda x:x['Game ID'])
-    return games
-
-def getMaxBrightness(time):
-    """ Calculates the maximum brightness and fade step incremements based on the time of day.
-
-    Args:
-        time (int): Hour of the day. Can be 0-23.
-
-    Returns:
-        maxBrightness (int): The maximum brightness for the LED display.
-        fadeStep (int): The increments that the display should fade up and down by.
-    """
-    
-    # If the time is midnight, set the time to 1am to avoid the display fulling turning off.
-    if time == 0:
-        time = 1
-
-    # Max brihgtness is the time divided by 12 and multiplied by 100. For pm times, the difference between 24 and the time is used.
-    # This means that max brightness is at noon, with the lowest from 11pm through 1am (because of the above edge case).
-    maxBrightness = math.ceil(100 * time / 12 if time <= 12 else 100 * (24-time)/12)
-    
-    # If the previous calculation results in a birhgtness less than 15, set brightnes to 15.
-    maxBrightness = maxBrightness if maxBrightness >= 15 else 15
-
-    # Fade step divides the maxBrightness into 15 segments. Floor since you can't have fractional brightness.
-    fadeStep = math.ceil(maxBrightness/15)
-
-    return maxBrightness, fadeStep
-
-def cropImage(image):
-    """Crops all transparent space around an image. Returns that cropped image."""
-
-    # Get the bounding box of the image. Aka, boundries of what's non-transparent.
-    bbox = image.getbbox()
-
-    # Crop the image to the contents of the bounding box.
-    image = image.crop(bbox)
-
-    # Determine the width and height of the cropped image.
-    (width, height) = image.size
-    
-    # Create a new image object for the output image.
-    croppedImage = Image.new("RGB", (width, height), (0,0,0,255))
-
-    # Paste the cropped image onto the new image.
-    croppedImage.paste(image)
-
-    return croppedImage
-
-def utcToLocal(utc_dt):
-    """Returns a time object converted to the local timezone set on the RPi."""
-    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
-
-def checkGoalScorer(game, gameOld):
+def checkScorer(game, gameOld):
     """Checks if a team has scored.
 
     Args:
@@ -272,7 +141,7 @@ def buildNoGamesToday():
 
     # Add the NHL logo to the image.
     nhlLogo = Image.open("assets/images/NHL_Logo_Simplified.png")
-    nhlLogo = cropImage(nhlLogo)
+    nhlLogo = imageUtil.cropImage(nhlLogo)
     nhlLogo.thumbnail((40,30))
     image.paste(nhlLogo, (1, 1))
 
@@ -286,7 +155,7 @@ def buildLoading():
 
     # Add the NHL logo to the image.
     nhlLogo = Image.open("assets/images/NHL_Logo_Simplified.png")
-    nhlLogo = cropImage(nhlLogo)
+    nhlLogo = imageUtil.cropImage(nhlLogo)
     nhlLogo.thumbnail((40,30))
     image.paste(nhlLogo, (1, 1))
 
@@ -307,12 +176,12 @@ def displayLogos(awayTeam, homeTeam):
 
     # Load, crop, and resize the away team logo.
     awayLogo = Image.open("assets/images/team logos/png/" + awayTeam + ".png")
-    awayLogo = cropImage(awayLogo)
+    awayLogo = imageUtil.cropImage(awayLogo)
     awayLogo.thumbnail(logoSize)
 
     # Load, crop, and resize the home team logo.
     homeLogo = Image.open("assets/images/team logos/png/" + homeTeam + ".png")
-    homeLogo = cropImage(homeLogo)
+    homeLogo = imageUtil.cropImage(homeLogo)
     homeLogo.thumbnail(logoSize)
 
     # Record the width and heights of the logos.
@@ -476,7 +345,7 @@ def runScoreboard():
     """Runs the scoreboard geting scores and other game data and cycles through them in an infinite loop."""
 
     # Initial calculation and setting of the max brightness.
-    maxBrightness, fadeStep = getMaxBrightness(int(datetime.now().strftime("%H")))
+    maxBrightness, fadeStep = timeUtil.getMaxBrightness(int(datetime.now().strftime("%H")))
     matrix.brightness = maxBrightness
 
     # Build the loading screen.
@@ -485,18 +354,23 @@ def runScoreboard():
 
     networkError = False
 
+    nhlService = NhlService()
+
+    games = []
+
     # Try to get team and game data. Max of 100 attempts before it gives up.
     for i in range(100):
         try:
-            teams = getTeamData()
-            games = getGameData(teams)
+            teams = nhlService.getTeamData()
+            games = nhlService.getGameData(teams)
             gamesOld = games # Needed for checking logic on initial loop.
             networkError = False
             break
 
         # In the event that the NHL API cannot be reached, set the bottom right LED to red.
         # TODO: Make this more robust for specific fail cases.
-        except:
+        except Exception as e:
+            print(e)
             networkError = True
             if i >= 10:
                 draw.rectangle(((63,31),(63,31)), fill=fillRed)
@@ -519,7 +393,7 @@ def runScoreboard():
     while True:
         
         # Update the maxBrightness and fadeSteps.
-        maxBrightness, fadeStep = getMaxBrightness(int(datetime.now().strftime("%H")))
+        maxBrightness, fadeStep = timeUtil.getMaxBrightness(int(datetime.now().strftime("%H")))
 
         # Adjusting cycle time for single game situation.
         if len(games) == 1:
@@ -534,7 +408,7 @@ def runScoreboard():
             for game, gameOld in zip(games, gamesOld):
 
                 # Check if either team has scored.
-                scoringTeam = checkGoalScorer(game, gameOld)
+                scoringTeam = checkScorer(game, gameOld)
 
                 # If the game is postponed, build the postponed screen.
                 if game['Detailed Status'] == "Postponed":
@@ -596,7 +470,7 @@ def runScoreboard():
         # Record the data of the last cycle in gamesOld to check for goals.
         try:
             gamesOld = games
-            games = getGameData(teams)
+            games = nhlService.getGameData(teams)
             networkError = False
         except:
             print("Network Error")
@@ -614,7 +488,7 @@ if __name__ == "__main__":
     options.chain_length = 1
     options.parallel = 1
     options.gpio_slowdown= 2
-    options.hardware_mapping = 'adafruit-hat-pwm'
+    options.hardware_mapping = 'adafruit-hat'
 
     # Define a matrix object from the options.
     matrix = RGBMatrix(options = options)
