@@ -1,4 +1,11 @@
 class LeagueApiInterface:
+    BASE_URL = ""
+    ENDPOINT_TEAMS = ""
+    ENDPOINT_SCHEDULE = ""
+
+    def __init__(self, ) -> None:
+        pass
+
     def getTeamData(self):
         """Get team names and abreviations from the League API, return information as a list of dictionaries.
         Returns:

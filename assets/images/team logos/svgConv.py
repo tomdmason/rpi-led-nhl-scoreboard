@@ -9,8 +9,8 @@ def main():
     # source = '/home/pi/nhl_scoreboard/Assets/Images/Team Logos/SVG/'
     # destination = '/home/pi/nhl_scoreboard/Assets/Images/Team Logos/PNG/'
 
-    source = '/Users/stephen/Developer/rpi-led-nhl-scoreboard/assets/images/team logos/svg/'
-    destination = '/Users/stephen/Developer/rpi-led-nhl-scoreboard/assets/images/team logos/png/'
+    source = '/home/pi/dev/rpi-led-nhl-scoreboard/assets/images/team logos/mlb/svg/'
+    destination = '/home/pi/dev/rpi-led-nhl-scoreboard/assets/images/team logos/mlb/png/'
 
     for filename in os.listdir(source):
         print(filename)

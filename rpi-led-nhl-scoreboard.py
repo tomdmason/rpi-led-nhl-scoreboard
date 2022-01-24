@@ -3,8 +3,10 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from datetime import datetime
 import time
 import math
+import random
 from util import imageUtil, timeUtil
 from api.nhlService import NhlService
+from api.mlbService import MlbService
 
 
 def checkScorer(game, gameOld):
@@ -38,7 +40,7 @@ def buildGameNotStarted(game):
     """
 
     # Add the logos of the teams inivolved to the image.
-    displayLogos(game['Away Abbreviation'],game['Home Abbreviation'])
+    displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
 
     # Add "Today" to the image.
     draw.text((firstMiddleCol+1,0), "T", font=fontMedReg, fill=fillWhite)
@@ -87,7 +89,7 @@ def buildGameInProgress(game, gameOld, scoringTeam):
     """
 
     # Add the logos of the teams inivolved to the image.
-    displayLogos(game['Away Abbreviation'],game['Home Abbreviation'])
+    displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
 
     # Add the period to the image.
     displayPeriod(game['Period Number'], game['Period Name'], game['Period Time Remaining'])
@@ -104,7 +106,7 @@ def buildGameOver(game, scoringTeam):
     """
 
     # Add the logos of the teams involved to the image.
-    displayLogos(game['Away Abbreviation'],game['Home Abbreviation'])
+    displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
 
     # Add "Final" to the image.
     draw.text((firstMiddleCol+1,0), "F", font=fontMedReg, fill=fillWhite)
@@ -131,7 +133,7 @@ def buildGamePostponed(game):
     """
     
     # Add the logos of the teams involved to the image.
-    displayLogos(game['Away Abbreviation'],game['Home Abbreviation'])
+    displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
 
     # Add "PPD" to the image.
     draw.text((firstMiddleCol+2,0), "PPD", font=fontMedReg, fill=fillWhite)
@@ -142,8 +144,13 @@ def buildNoGamesToday():
     # Add the NHL logo to the image.
     nhlLogo = Image.open("assets/images/NHL_Logo_Simplified.png")
     nhlLogo = imageUtil.cropImage(nhlLogo)
-    nhlLogo.thumbnail((40,30))
+    nhlLogo.thumbnail((25,15))
     image.paste(nhlLogo, (1, 1))
+
+    mlbLogo = Image.open("assets/images/MLB_Logo.png")
+    mlbLogo = imageUtil.cropImage(mlbLogo)
+    mlbLogo.thumbnail((20,30))
+    image.paste(mlbLogo, (1, 20))
 
     # Add "No Games Today" to the image.
     draw.text((32,0), "No", font=fontMedReg, fill=fillWhite)
@@ -159,11 +166,12 @@ def buildLoading():
     nhlLogo.thumbnail((40,30))
     image.paste(nhlLogo, (1, 1))
 
-    # Add "Now Loading" to the image.
-    draw.text((29,8), "Now", font=fontSmallReg, fill=fillWhite)
-    draw.text((29,15), "Loading", font=fontSmallReg, fill=fillWhite)
+    mlbLogo = Image.open("assets/images/MLB_Logo.png")
+    mlbLogo = imageUtil.cropImage(mlbLogo)
+    mlbLogo.thumbnail((30,60))
+    image.paste(mlbLogo, (30, 8))
 
-def displayLogos(awayTeam, homeTeam):
+def displayLogos(league, awayTeam, homeTeam):
     """Adds the logos of the home and away teams to the image object, making sure to not overlap text and center logos.
 
     Args:
@@ -172,15 +180,15 @@ def displayLogos(awayTeam, homeTeam):
     """
 
     # Difine the max width and height that a logo can be.
-    logoSize = (40,30)
+    logoSize = (30,20)
 
     # Load, crop, and resize the away team logo.
-    awayLogo = Image.open("assets/images/team logos/png/" + awayTeam + ".png")
+    awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
     awayLogo = imageUtil.cropImage(awayLogo)
     awayLogo.thumbnail(logoSize)
 
     # Load, crop, and resize the home team logo.
-    homeLogo = Image.open("assets/images/team logos/png/" + homeTeam + ".png")
+    homeLogo = Image.open("assets/images/team logos/" + league + "/png/" + homeTeam + ".png")
     homeLogo = imageUtil.cropImage(homeLogo)
     homeLogo.thumbnail(logoSize)
 
@@ -191,7 +199,7 @@ def displayLogos(awayTeam, homeTeam):
     # Add the logos to the image.
     # Logos will be bounded by the text region, and be centered vertically.
     image.paste(awayLogo, (21-awayLogoWidth, math.floor((32-awayLogoHeight)/2)))
-    image.paste(homeLogo, (43, math.floor((32-homeLogoHeight)/2)))
+    image.paste(homeLogo, (45, math.floor((32-homeLogoHeight)/2)))
 
 def displayPeriod(periodNumber, periodName, timeRemaining):
     """Adds the current period to the image object.
@@ -355,14 +363,15 @@ def runScoreboard():
     networkError = False
 
     nhlService = NhlService()
+    mlbService = MlbService()
 
     games = []
 
     # Try to get team and game data. Max of 100 attempts before it gives up.
     for i in range(100):
         try:
-            teams = nhlService.getTeamData()
-            games = nhlService.getGameData(teams)
+            games = mlbService.getGameData() + nhlService.getGameData()
+            random.shuffle(games)
             gamesOld = games # Needed for checking logic on initial loop.
             networkError = False
             break
@@ -470,7 +479,7 @@ def runScoreboard():
         # Record the data of the last cycle in gamesOld to check for goals.
         try:
             gamesOld = games
-            games = nhlService.getGameData(teams)
+            games = nhlService.getGameData()
             networkError = False
         except:
             print("Network Error")

@@ -10,7 +10,6 @@ class NhlService(LeagueApiInterface):
         Returns:
             teams (list of dictionaries): Each dict contains the longform name and abbreviation of a single NHL team.
         """
-        print("Calling...")
         # Call the NHL Teams API. Store as a JSON object.
         teamsResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/teams")
         teamsJson = teamsResponse.json()
@@ -29,7 +28,7 @@ class NhlService(LeagueApiInterface):
         
         return teams
 
-    def getGameData(self, teams):
+    def getGameData(self):
         """Get game data for all of todays games from the NHL API, returns games as a list of dictionaries.
 
         Args:
@@ -38,6 +37,8 @@ class NhlService(LeagueApiInterface):
         Returns:
             games (list of dictionaries): All game info needed to display on scoreboard. Teams, scores, start times, game clock, etc.
         """
+
+        teams = self.getTeamData()
 
         # Call the NHL API for today's game info. Save the rsult as a JSON object.
         gamesResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.linescore")
@@ -75,7 +76,8 @@ class NhlService(LeagueApiInterface):
                     'Detailed Status': game['status']['detailedState'],
                     'Period Number': game['linescore']['currentPeriod'],
                     'Period Name': perName,
-                    'Period Time Remaining': perTimeRem
+                    'Period Time Remaining': perTimeRem,
+                    'League': 'nhl'
                 }
 
                 # Append the dict to the games list.
