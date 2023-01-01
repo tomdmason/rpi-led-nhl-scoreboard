@@ -187,6 +187,13 @@ def clearScreen(maxBrightness, fadeStep):
     draw.rectangle(((0,0),(63,31)), fill=fillBlack) 
     matrix.SetImage(image)
 
+def fadeIn(maxBrightness, fadeStep):
+    # Fade up to the image.
+    for brightness in range(0,maxBrightness,fadeStep):
+        matrix.brightness = brightness
+        matrix.SetImage(image)
+        time.sleep(.025)
+
 def displayLogos(league, awayTeam, homeTeam):
     """Adds the logos of the home and away teams to the image object, making sure to not overlap text and center logos.
 
@@ -385,7 +392,7 @@ def runScoreboard():
 
     clearScreen(maxBrightness, fadeStep)
     buildError("Test!")
-    matrix.SetImage(image)
+    fadeIn(maxBrightness, fadeStep)
 
     time.sleep(10)
     return
