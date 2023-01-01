@@ -3,6 +3,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from datetime import datetime
 import time
 import math
+from util import imageUtil, timeUtil
 from api.gameData import fetchGameData
 
 
