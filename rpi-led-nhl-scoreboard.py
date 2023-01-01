@@ -3,7 +3,6 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from datetime import datetime
 import time
 import math
-from util import imageUtil, timeUtil
 from api.gameData import fetchGameData
 
 
@@ -371,6 +370,11 @@ def runScoreboard():
         buildError(e)
 
     time.sleep(1)
+
+    buildError("Test!")
+
+    time.sleep(10)
+    return
 
     # Fade out.
     for brightness in range(maxBrightness,0,-fadeStep):
