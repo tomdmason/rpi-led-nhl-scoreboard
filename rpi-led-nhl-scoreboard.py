@@ -373,6 +373,7 @@ def runScoreboard():
     time.sleep(1)
 
     buildError("Test!")
+    matrix.SetImage(image)
 
     time.sleep(10)
     return
