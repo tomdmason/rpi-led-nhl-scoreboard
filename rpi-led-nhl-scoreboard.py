@@ -176,6 +176,17 @@ def buildError(msg):
     draw.text((32,0), "Error", font=fontMedReg, fill=fillWhite)
     draw.text((32,10), msg, font=fontMedReg, fill=fillWhite)
 
+def clearScreen(maxBrightness, fadeStep):
+     # Fade down to black.
+    for brightness in range(maxBrightness,0,-fadeStep):
+        matrix.brightness = brightness
+        matrix.SetImage(image)
+        time.sleep(.025)
+
+    # Make the screen totally blank between fades.
+    draw.rectangle(((0,0),(63,31)), fill=fillBlack) 
+    matrix.SetImage(image)
+
 def displayLogos(league, awayTeam, homeTeam):
     """Adds the logos of the home and away teams to the image object, making sure to not overlap text and center logos.
 
@@ -372,6 +383,7 @@ def runScoreboard():
 
     time.sleep(1)
 
+    clearScreen(maxBrightness, fadeStep)
     buildError("Test!")
     matrix.SetImage(image)
 
