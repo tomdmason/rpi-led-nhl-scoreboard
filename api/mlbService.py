@@ -72,23 +72,23 @@ class MlbService(LeagueApiInterface):
                 try:
                     # Prep the dict data.
                     gameDict = {
-                        'Game ID': game['gamePk'],
-                        'Home Team': game['teams']['home']['team']['name'],
+                        # 'Game ID': game['gamePk'],
+                        # 'Home Team': game['teams']['home']['team']['name'],
+                        # # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
+                        # 'Home Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['home']['team']['name']][0],
+                        # 'Away Team': game['teams']['away']['team']['name'],
                         # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                        'Home Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['home']['team']['name']][0],
-                        'Away Team': game['teams']['away']['team']['name'],
-                        # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                        'Away Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['away']['team']['name']][0],
-                        'Home Score': game['teams']['home']['score'],
-                        'Away Score': game['teams']['away']['score'],
-                        'Start Time UTC':  datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ'), # Extracts the startime from what's given by the API.
-                        'Start Time Local': timeUtil.utcToLocal(datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ')), # Converts the UTC start time to the RPi's local timezone.
-                        'Status': game['status']['abstractGameState'],
-                        'Detailed Status': game['status']['detailedState'],
-                        'Period Number': 0, #game['linescore']['currentPeriod'],
-                        'Period Name': "Top 1st",
-                        'Period Time Remaining': "2/3",
-                        'League': "mlb"
+                        # 'Away Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['away']['team']['name']][0],
+                        # 'Home Score': game['teams']['home']['score'],
+                        # 'Away Score': game['teams']['away']['score'],
+                        # 'Start Time UTC':  datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ'), # Extracts the startime from what's given by the API.
+                        # 'Start Time Local': timeUtil.utcToLocal(datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ')), # Converts the UTC start time to the RPi's local timezone.
+                        # 'Status': game['status']['abstractGameState'],
+                        # 'Detailed Status': game['status']['detailedState'],
+                        # 'Period Number': 0, #game['linescore']['currentPeriod'],
+                        # 'Period Name': "Top 1st",
+                        # 'Period Time Remaining': "2/3",
+                        # 'League': "mlb"
                     }
                 except Exception as e:
                     print("Caught")
@@ -96,8 +96,8 @@ class MlbService(LeagueApiInterface):
                     print(game)
 
                 # Append the dict to the games list.
-                games.append(gameDict)
+                games.append(game)
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
-                games.sort(key=lambda x:x['Game ID'])
+                # games.sort(key=lambda x:x['Game ID'])
         return games

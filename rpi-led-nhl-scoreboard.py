@@ -3,10 +3,8 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from datetime import datetime
 import time
 import math
-import random
 from util import imageUtil, timeUtil
-from api.nhlService import NhlService
-from api.mlbService import MlbService
+from api.gameData import fetchGameData
 
 
 def checkScorer(game, gameOld):
@@ -170,6 +168,13 @@ def buildLoading():
     mlbLogo = imageUtil.cropImage(mlbLogo)
     mlbLogo.thumbnail((30,60))
     image.paste(mlbLogo, (30, 8))
+
+def buildError(msg):
+    """
+        Error screen
+    """
+    draw.text((32,0), "Error", font=fontMedReg, fill=fillWhite)
+    draw.text((32,10), msg, font=fontMedReg, fill=fillWhite)
 
 def displayLogos(league, awayTeam, homeTeam):
     """Adds the logos of the home and away teams to the image object, making sure to not overlap text and center logos.
@@ -360,33 +365,11 @@ def runScoreboard():
     buildLoading()
     matrix.SetImage(image) # Set the matrix to the image.
 
-    networkError = False
+    try:
+        games = fetchGameData()
+    except Exception as e:
+        buildError(e)
 
-    nhlService = NhlService()
-    mlbService = MlbService()
-
-    games = []
-
-    # Try to get team and game data. Max of 100 attempts before it gives up.
-    for i in range(100):
-        try:
-            games = mlbService.getGameData() + nhlService.getGameData()
-            random.shuffle(games)
-            gamesOld = games # Needed for checking logic on initial loop.
-            networkError = False
-            break
-
-        # In the event that the NHL API cannot be reached, set the bottom right LED to red.
-        # TODO: Make this more robust for specific fail cases.
-        except Exception as e:
-            print(e)
-            networkError = True
-            if i >= 10:
-                draw.rectangle(((63,31),(63,31)), fill=fillRed)
-                matrix.SetImage(image)
-            time.sleep(1)
-
-    # Wait one extra second on the loading screen. Users thoguht it was too quick.
     time.sleep(1)
 
     # Fade out.
