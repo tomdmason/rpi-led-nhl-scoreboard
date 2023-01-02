@@ -19,3 +19,7 @@ def cropImage(image):
     croppedImage.paste(image)
 
     return croppedImage
+
+def resizeImage(image):
+    size = (30, 30)
+    return image.resize(size)
