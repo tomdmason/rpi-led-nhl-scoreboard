@@ -40,13 +40,11 @@ class CommonRenderer:
         # Load, crop, and resize the away team logo.
         awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
         awayLogo = imageUtil.cropImage(awayLogo)
-        awayLogo = imageUtil.resizeImage(awayLogo)
         awayLogo.thumbnail(logoSize)
 
         # Load, crop, and resize the home team logo.
         homeLogo = Image.open("assets/images/team logos/" + league + "/png/" + homeTeam + ".png")
         homeLogo = imageUtil.cropImage(homeLogo)
-        homeLogo = imageUtil.resizeImage(homeLogo)
         homeLogo.thumbnail(logoSize)
 
         # Add the logos to the image.
