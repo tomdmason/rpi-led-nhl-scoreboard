@@ -172,7 +172,7 @@ if __name__ == "__main__":
     firstMiddleCol = 21
 
     # Define the number of seconds to sit on each game.
-    cycleTime = 3.5
+    cycleTime = 33.5
 
     # Run the scoreboard.
     runScoreboard()
