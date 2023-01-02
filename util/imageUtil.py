@@ -1,4 +1,5 @@
 from PIL import Image
+import math
 
 def cropImage(image):
     """Crops all transparent space around an image. Returns that cropped image."""
@@ -23,5 +24,5 @@ def cropImage(image):
 def resizeImage(image):
     aspectRatio = image.height / image.width 
     width = 30
-    height = width * aspectRatio
+    height = math.floor(width * aspectRatio)
     return image.resize((width, height))
