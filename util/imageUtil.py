@@ -25,4 +25,5 @@ def resizeImage(image):
     aspectRatio = image.height / image.width 
     width = 30
     height = math.floor(width * aspectRatio)
+    print(width, height)
     return image.resize((width, height))
