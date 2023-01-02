@@ -57,5 +57,5 @@ class CommonRenderer:
 
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (4,16 - math.floor(awayLogoHeight / 2)))
-        self.image.paste(homeLogo, (45, math.floor((32-homeLogoHeight)/2)))
+        self.image.paste(awayLogo, (1, 8))
+        self.image.paste(homeLogo, (42, 8))
