@@ -16,9 +16,9 @@ def fetchGameData ():
     # Try to get team and game data. Max of 100 attempts before it gives up.
     for i in range(100):
         try:
-            mlb = mlbService.getGameData()
+            #mlb = mlbService.getGameData()
             nhl = nhlService.getGameData()
-            games = mlb + nhl
+            games = nhl
             random.shuffle(games)
             networkError = False
             break
