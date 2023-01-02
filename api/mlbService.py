@@ -88,7 +88,7 @@ class MlbService(LeagueApiInterface):
                         # 'Period Number': 0, #game['linescore']['currentPeriod'],
                         # 'Period Name': "Top 1st",
                         # 'Period Time Remaining': "2/3",
-                        # 'League': "mlb"
+                        'League': "mlb"
                     }
                 except Exception as e:
                     print("Caught")
