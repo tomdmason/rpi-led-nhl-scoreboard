@@ -21,5 +21,7 @@ def cropImage(image):
     return croppedImage
 
 def resizeImage(image):
-    size = (30, 30)
-    return image.resize(size)
+    aspectRatio = image.height / image.width 
+    width = 30
+    height = width * aspectRatio
+    return image.resize((width, height))
