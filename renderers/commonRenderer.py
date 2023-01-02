@@ -49,13 +49,7 @@ class CommonRenderer:
         homeLogo = imageUtil.resizeImage(homeLogo)
         homeLogo.thumbnail(logoSize)
 
-        # Record the width and heights of the logos.
-        awayLogoWidth, awayLogoHeight = awayLogo.size
-        homeLogoWidth, homeLogoHeight = homeLogo.size
-
-        print(awayTeam, homeTeam)
-
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (1, 8))
+        self.image.paste(awayLogo, (2, 8))
         self.image.paste(homeLogo, (42, 8))
