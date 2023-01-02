@@ -105,7 +105,7 @@ def runScoreboard():
             # Loop through both the games and gamesOld arrays.
             for game in games:
 
-                if game['league'] == "nhl":
+                if game['League'] == "nhl":
                     nhlRenderer.render(game)
 
                 fadeIn(maxBrightness, fadeStep)
