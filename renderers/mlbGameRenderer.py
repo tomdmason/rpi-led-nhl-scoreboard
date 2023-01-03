@@ -38,17 +38,17 @@ class MlbGameRenderer(CommonRenderer):
         # Load, crop, and resize the away team logo.
         awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
         awayLogo = imageUtil.cropImage(awayLogo)
-        awayLogo.thumbnail(logoSize)
+        awayLogo.crop((16, 16, 24, 24))
 
         # Load, crop, and resize the home team logo.
         homeLogo = Image.open("assets/images/team logos/" + league + "/png/" + homeTeam + ".png")
         homeLogo = imageUtil.cropImage(homeLogo)
-        homeLogo.thumbnail(logoSize)
+        homeLogo.crop((16, 16, 24, 24))
 
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (2, 8))
-        self.image.paste(homeLogo, (2, 28))
+        self.image.paste(awayLogo, (2, 2))
+        self.image.paste(homeLogo, (2, 22))
 
     def buildGameNotStarted(self, game):
         """Adds all aspects of the game not started screen to the image object.
