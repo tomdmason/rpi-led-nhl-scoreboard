@@ -108,6 +108,8 @@ def runScoreboard():
             for game in games:
                 if game['League'] == "nhl":
                     nhlRenderer.render(game)
+                if game['League'] == "mlb":
+                    mlbRenderer.render(game)
 
                 fadeIn(maxBrightness, fadeStep)
 
