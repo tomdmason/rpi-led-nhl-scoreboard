@@ -1,6 +1,6 @@
 from renderers.commonRenderer import CommonRenderer
 
-class NhlGameRenderer(CommonRenderer):
+class MlbGameRenderer(CommonRenderer):
     def __init__(self, matrix, image, draw) -> None:
         super().__init__(matrix, image, draw)
 

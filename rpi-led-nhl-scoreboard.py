@@ -5,6 +5,7 @@ import time
 from util import imageUtil, timeUtil
 from api.gameData import fetchGameData
 from renderers.nhlGameRenderer import NhlGameRenderer
+from renderers.mlbGameRenderer import MlbGameRenderer
 
 
 def buildNoGamesToday():
@@ -90,6 +91,7 @@ def runScoreboard():
     fadeOut(maxBrightness, fadeStep)
 
     nhlRenderer = NhlGameRenderer(matrix, image, draw)
+    mlbRenderer = MlbGameRenderer(matrix, image, draw)
 
     while True:
 
