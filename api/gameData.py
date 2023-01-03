@@ -1,10 +1,7 @@
 from api.nhlService import NhlService
 from api.mlbService import MlbService
-import json
 import random
-from datetime import datetime
 import time
-import math
 
 def fetchGameData ():
     nhlService = NhlService()
@@ -16,9 +13,9 @@ def fetchGameData ():
     # Try to get team and game data. Max of 100 attempts before it gives up.
     for i in range(100):
         try:
-            #mlb = mlbService.getGameData()
+            mlb = mlbService.getGameData()
             nhl = nhlService.getGameData()
-            games = nhl
+            games = mlb + nhl
             random.shuffle(games)
             networkError = False
             break
@@ -32,10 +29,7 @@ def fetchGameData ():
     
     if networkError == True:
         raise Exception("Unable to fetch game data")
-
-    return games
         
-    # with open('data.json', 'w', encoding='utf-8') as f:
-    #     json.dump(mlb, f, ensure_ascii=False, indent=4)
+    
 
 # fetchGameData()

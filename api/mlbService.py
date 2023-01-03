@@ -2,13 +2,14 @@ import requests
 from .api import LeagueApiInterface
 from datetime import datetime
 from util import timeUtil
+import json
 
 class MlbService(LeagueApiInterface):
     def __init__(self) -> None:
         super().__init__()
         self.BASE_URL = "https://statsapi.mlb.com/api/v1/"
         self.ENDPOINT_TEAMS = "teams?sportId=1"
-        self.ENDPOINT_SCHEDULE = "schedule?sportId=1&date=04/10/2018"
+        self.ENDPOINT_SCHEDULE = "schedule?sportId=1&date=07/10/2022"
 
     def getTeamData(self):
         """Get team names and abreviations from the MLB API, return information as a list of dictionaries.
@@ -43,7 +44,6 @@ class MlbService(LeagueApiInterface):
             # Append dict to the end of the teams list.
             teams.append(teamDict)
 
-        print(teams)
         return teams
 
     def getGameData(self):
@@ -69,35 +69,61 @@ class MlbService(LeagueApiInterface):
         if gamesJson['dates']: # If games today.
             for game in gamesJson['dates'][0]['games']:
 
+                gameId = game['gamePk']
+                linescore = requests.get(url=self.BASE_URL + f'game/{gameId}/linescore')
+                linescore = linescore.json()
+
+                pbp = requests.get(url=self.BASE_URL + f'game/{gameId}/playByPlay?fields=allPlays,result,description,event,runners,movement')
+                pbp = pbp.json()
+
                 try:
+                    currentInning = filter(lambda obj: obj['ordinalNum'] == linescore['currentInningOrdinal'], linescore['innings'])
+                    inningInfo = list(currentInning)
+                    if inningInfo:
+                        inningInfo = inningInfo[0]
+                    else:
+                        inningInfo = []
+
+                    runners = []
+                    lastPlay = []
+                    if pbp['allPlays']:
+                        runners = pbp['allPlays'][-1]['runners']
+                        lastPlay = pbp['allPlays'][-1]['result']
+
                     # Prep the dict data.
                     gameDict = {
-                        # 'Game ID': game['gamePk'],
-                        # 'Home Team': game['teams']['home']['team']['name'],
+                        'Game ID': game['gamePk'],
+                        'Home Team': game['teams']['home']['team']['name'],
                         # # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                        # 'Home Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['home']['team']['name']][0],
-                        # 'Away Team': game['teams']['away']['team']['name'],
+                        'Home Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['home']['team']['name']][0],
+                        'Away Team': game['teams']['away']['team']['name'],
                         # Since the schedule API doesn't have team abreviatiosn, we'll have to get that from the team dict.
-                        # 'Away Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['away']['team']['name']][0],
-                        # 'Home Score': game['teams']['home']['score'],
-                        # 'Away Score': game['teams']['away']['score'],
-                        # 'Start Time UTC':  datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ'), # Extracts the startime from what's given by the API.
-                        # 'Start Time Local': timeUtil.utcToLocal(datetime.strptime(game['gameDate'], '%Y-%m-%dT%H:%M:%SZ')), # Converts the UTC start time to the RPi's local timezone.
-                        # 'Status': game['status']['abstractGameState'],
-                        # 'Detailed Status': game['status']['detailedState'],
-                        # 'Period Number': 0, #game['linescore']['currentPeriod'],
-                        # 'Period Name': "Top 1st",
-                        # 'Period Time Remaining': "2/3",
+                        'Away Abbreviation': [t['Team Abbreviation'] for t in teams if t['Team Name'] == game['teams']['away']['team']['name']][0],
+                        'Home Score': linescore['teams']['home']['runs'],
+                        'Away Score': linescore['teams']['away']['runs'],
+                        'Home Hits': linescore['teams']['home']['hits'],
+                        'Away Hits': linescore['teams']['away']['hits'],
+                        'Status': game['status']['abstractGameState'],
+                        'Current Inning': linescore['currentInningOrdinal'],
+                        'Current Inning Info': inningInfo,
+                        'Inning State': linescore['inningState'],
+                        'Balls': linescore['balls'],
+                        'Strikes': linescore['strikes'],
+                        'Outs': linescore['outs'],
+                        'Runners': runners,
+                        'Last Play': lastPlay,
                         'League': "mlb"
-                    }
+                    }                    
                 except Exception as e:
                     print("Caught")
                     print(e)
                     print(game)
 
                 # Append the dict to the games list.
-                games.append(game)
+                games.append(gameDict)
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
-                # games.sort(key=lambda x:x['Game ID'])
+                games.sort(key=lambda x:x['Game ID'])
+                # with open('data.json', 'w', encoding='utf-8') as f:
+                #         json.dump(games, f, ensure_ascii=False, indent=4)
         return games

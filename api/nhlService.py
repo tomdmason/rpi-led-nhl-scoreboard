@@ -41,12 +41,12 @@ class NhlService(LeagueApiInterface):
         teams = self.getTeamData()
 
         # Call the NHL API for today's game info. Save the rsult as a JSON object.
-        gamesResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.linescore")
+        gamesResponse = requests.get(url="https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.linescore&date=" + datetime.today().strftime('%Y-%m-%d'))
         gamesJson = gamesResponse.json()
 
         # Decalare an empty list to hold the games dicts.
         games = []
-
+        
         # For each game, build a dict recording it's information. Append this to the end of the teams list.
         if gamesJson['dates']: # If games today.
             for game in gamesJson['dates'][0]['games']:
