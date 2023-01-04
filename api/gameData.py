@@ -15,7 +15,7 @@ def fetchGameData ():
         try:
             mlb = mlbService.getGameData()
             nhl = nhlService.getGameData()
-            games = mlb
+            games = nhl
             random.shuffle(games)
             networkError = False
             break
