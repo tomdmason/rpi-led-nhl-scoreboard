@@ -24,31 +24,7 @@ class MlbGameRenderer(CommonRenderer):
         else:
             self.buildGameInProgress(game)
 
-    def displayLogos(self, league, awayTeam, homeTeam):
-        """Adds the logos of the home and away teams to the image object, making sure to not overlap text and center logos.
-
-        Args:
-            awayTeam (string): Abbreviation of the away team.
-            homeTeam (string): Abbreviation of the home team.
-        """
-
-        # Difine the max width and height that a logo can be.
-        logoSize = (20,20)
-
-        # Load, crop, and resize the away team logo.
-        awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
-        awayLogo = imageUtil.cropImage(awayLogo)
-        awayLogo.thumbnail(logoSize)
-
-        # Load, crop, and resize the home team logo.
-        homeLogo = Image.open("assets/images/team logos/" + league + "/png/" + homeTeam + ".png")
-        homeLogo = imageUtil.cropImage(homeLogo)
-        homeLogo.thumbnail(logoSize)
-
-        # Add the logos to the image.
-        # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (2, 2))
-        self.image.paste(homeLogo, (2, 22))
+    
 
     def buildGameNotStarted(self, game):
         """Adds all aspects of the game not started screen to the image object.
