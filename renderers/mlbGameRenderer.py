@@ -65,11 +65,7 @@ class MlbGameRenderer(CommonRenderer):
         self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
 
         # Add "Final" to the image.
-        self.draw.text((self.firstMiddleCol+1,0), "F", font=self.fontMedReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+5,2), "i", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+9,2), "n", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+14,2), "a", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+17,2), "l", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((18, 13), "Final", font=self.fontMedReg, fill=self.fillWhite)
 
         # Add the current score to the image.
         self.displayScore(game['Away Score'],game['Home Score'])
