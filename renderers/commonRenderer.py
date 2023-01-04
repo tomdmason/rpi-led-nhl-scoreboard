@@ -35,7 +35,7 @@ class CommonRenderer:
         """
 
         # Difine the max width and height that a logo can be.
-        logoSize = (16,16)
+        logoSize = (14,14)
 
         # Load, crop, and resize the away team logo.
         awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
@@ -49,5 +49,5 @@ class CommonRenderer:
 
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (2, 0))
-        self.image.paste(homeLogo, (2, 17))
+        self.image.paste(awayLogo, (2, 1))
+        self.image.paste(homeLogo, (2, 16))
