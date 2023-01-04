@@ -3,7 +3,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from datetime import datetime
 import time
 from util import imageUtil, timeUtil
-from api.gameData import fetchGameData
+from api.gameData import fetchGameData, fetchMlbGame
 from renderers.nhlGameRenderer import NhlGameRenderer
 from renderers.mlbGameRenderer import MlbGameRenderer
 
@@ -109,7 +109,8 @@ def runScoreboard():
                 if game['League'] == "nhl":
                     nhlRenderer.render(game)
                 if game['League'] == "mlb":
-                    mlbRenderer.render(game)
+                    details = fetchMlbGame(game['Game ID'])
+                    mlbRenderer.render(details)
 
                 fadeIn(maxBrightness, fadeStep)
 

@@ -34,49 +34,10 @@ class MlbService(LeagueApiInterface):
         if gamesJson['dates']: # If games today.
             for game in gamesJson['dates'][0]['games']:
 
-                gameId = game['gamePk']
-                feed = requests.get(url=f'https://statsapi.mlb.com/api/v1.1/game/{gameId}/feed/live')
-                feed = feed.json()
-
-                gameData = feed['gameData']
-                teams = gameData['teams']
-                linescore = feed['liveData']['linescore']
-
-                first = []
-                second = []
-                third = []
-
-                if 'first' in linescore['offense']:
-                    first = linescore['offense']['first']
-
-                if 'second' in linescore['offense']:
-                    second = linescore['offense']['second']
-
-                if 'third' in linescore['offense']:
-                    third = linescore['offense']['third']
-
                 try:
                     # Prep the dict data.
                     gameDict = {
                         'Game ID': game['gamePk'],
-                        'Home Team': teams['home']['name'],
-                        'Home Abbreviation': teams['home']['abbreviation'],
-                        'Away Team': teams['away']['name'],
-                        'Away Abbreviation': teams['away']['abbreviation'],
-                        'Home Score': linescore['teams']['home']['runs'],
-                        'Away Score': linescore['teams']['away']['runs'],
-                        'Home Hits': linescore['teams']['home']['hits'],
-                        'Away Hits': linescore['teams']['away']['hits'],
-                        'Status': gameData['status']['abstractGameState'],
-                        'Current Inning': linescore['currentInningOrdinal'],
-                        'Inning State': linescore['inningState'],
-                        'Balls': linescore['balls'],
-                        'Strikes': linescore['strikes'],
-                        'Outs': linescore['outs'],
-                        'At Bat': linescore['offense']['batter'],
-                        'On First': first,
-                        'On Second': second,
-                        'On Third': third,
                         'League': "mlb"
                     }                    
                 except Exception as e:
@@ -90,3 +51,54 @@ class MlbService(LeagueApiInterface):
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
                 games.sort(key=lambda x:x['Game ID'])
         return games
+
+    def getGameDetails(self, gameId):
+        feed = requests.get(url=f'https://statsapi.mlb.com/api/v1.1/game/{gameId}/feed/live')
+        feed = feed.json()
+
+        gameData = feed['gameData']
+        teams = gameData['teams']
+        linescore = feed['liveData']['linescore']
+
+        first = []
+        second = []
+        third = []
+
+        if 'first' in linescore['offense']:
+            first = linescore['offense']['first']
+
+        if 'second' in linescore['offense']:
+            second = linescore['offense']['second']
+
+        if 'third' in linescore['offense']:
+            third = linescore['offense']['third']
+
+        try:
+            # Prep the dict data.
+            return {
+                'Game ID': gameId,
+                'Home Team': teams['home']['name'],
+                'Home Abbreviation': teams['home']['abbreviation'],
+                'Away Team': teams['away']['name'],
+                'Away Abbreviation': teams['away']['abbreviation'],
+                'Home Score': linescore['teams']['home']['runs'],
+                'Away Score': linescore['teams']['away']['runs'],
+                'Home Hits': linescore['teams']['home']['hits'],
+                'Away Hits': linescore['teams']['away']['hits'],
+                'Status': gameData['status']['abstractGameState'],
+                'Current Inning': linescore['currentInningOrdinal'],
+                'Inning State': linescore['inningState'],
+                'Balls': linescore['balls'],
+                'Strikes': linescore['strikes'],
+                'Outs': linescore['outs'],
+                'At Bat': linescore['offense']['batter'],
+                'On First': first,
+                'On Second': second,
+                'On Third': third,
+                'League': "mlb"
+            }                    
+        except Exception as e:
+            print("Caught")
+            print(e)
+            print(gameId)
+
