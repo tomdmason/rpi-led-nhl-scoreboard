@@ -47,9 +47,7 @@ class CommonRenderer:
         homeLogo = imageUtil.cropImage(homeLogo)
         homeLogo.thumbnail(logoSize)
 
-        # Record the width and heights of the logos.
-        awayLogoWidth, awayLogoHeight = awayLogo.size
-        homeLogoWidth, homeLogoHeight = homeLogo.size
+        _, homeLogoHeight = homeLogo.size
 
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
