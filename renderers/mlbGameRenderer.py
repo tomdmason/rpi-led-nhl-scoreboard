@@ -113,5 +113,11 @@ class MlbGameRenderer(CommonRenderer):
         fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
         # Add the hypen to the image.
-        self.draw.text((21,2), f'R{awayScore} H{awayHits} E{awayErrors}', font=self.fontRoboto18, fill=fillAway)
-        self.draw.text((21,21), f'R{homeScore} H{homeHits} E{homeErrors}', font=self.fontSmallReg, fill=fillHome)
+        self.draw.text((21,2), f'R{awayScore}', font=self.fontSmallReg, fill=fillAway)
+        self.draw.text((21,21), f'R{homeScore}', font=self.fontSmallReg, fill=fillHome)
+
+        self.draw.text((31,2), f'H{awayHits}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((31,21), f'H{homeHits}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        self.draw.text((41,2), f'E{awayErrors}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((41,21), f'E{homeErrors}', font=self.fontSmallReg, fill=self.fillWhite)

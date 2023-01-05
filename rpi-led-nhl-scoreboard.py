@@ -170,8 +170,6 @@ if __name__ == "__main__":
     fontLargeReg = ImageFont.load("assets/fonts/PIL/Tamzen8x15r.pil")
     fontLargeBold = ImageFont.load("assets/fonts/PIL/Tamzen8x15b.pil")
 
-    fontRoboto = ImageFont.truetype("assets/fonts/Roboto-Regular.ttf", 18)
-
     # Declare text colours that are needed.
     fillWhite = 255,255,255,255
     fillBlack = 0,0,0,255
