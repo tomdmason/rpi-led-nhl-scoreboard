@@ -82,7 +82,7 @@ class MlbGameRenderer(CommonRenderer):
         onSecond = game['onSecond']
         onThird = game['onThird']
 
-        self.draw.polygon(((48, 4), (50, 2), (52, 4), (50, 6)], fill=None, outline=self.fillWhite)
+        self.draw.polygon([(48, 4), (50, 2), (52, 4), (50, 6)], fill=None, outline=self.fillWhite)
 
 
     def buildGameOver(self, game):
