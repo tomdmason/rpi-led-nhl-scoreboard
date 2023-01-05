@@ -98,7 +98,5 @@ class MlbGameRenderer(CommonRenderer):
         """
 
         # Add the hypen to the image.
-        self.draw.text((self.firstMiddleCol+9,20), "-", font=self.fontSmallReg, fill=self.fillWhite)
-
-        self.draw.text((self.firstMiddleCol+1,17), str(awayScore), font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+13,17), str(homeScore), font=self.fontSmallReg, fill=(self.fillWhite))
+        self.draw.text((18,8), str(awayScore), font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((17,21), str(homeScore), font=self.fontSmallReg, fill=(self.fillWhite))
