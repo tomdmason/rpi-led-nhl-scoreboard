@@ -99,7 +99,7 @@ def runScoreboard():
         if len(games) == 1:
             cycleTime = 10
         else:
-            cycleTime = 3.5
+            cycleTime = 60
 
         # If there's games today.
         if games:
