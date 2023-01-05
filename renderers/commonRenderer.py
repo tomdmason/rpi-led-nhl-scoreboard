@@ -41,7 +41,7 @@ class CommonRenderer:
         """
 
         # Difine the max width and height that a logo can be.
-        logoSize = (24,24)
+        logoSize = (16,16)
 
         # Load, crop, and resize the away team logo.
         awayLogo = Image.open("assets/images/team logos/" + league + "/png/" + awayTeam + ".png")
