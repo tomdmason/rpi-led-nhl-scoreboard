@@ -84,8 +84,8 @@ class MlbGameRenderer(CommonRenderer):
 
         print(onFirst, onSecond, onThird)
 
-        self.draw.polygon([(40, 8), (43, 5), (46, 8), (43, 11)], fill=onThird, outline=self.fillWhite)
-        # self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=onSecond, outline=self.fillWhite)
+        self.draw.polygon([(38, 8), (41, 5), (44, 8), (41, 11)], fill=onThird, outline=self.fillWhite)
+        self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=onSecond, outline=self.fillWhite)
         # self.draw.polygon([(50, 8), (52, 6), (54, 8), (52, 10)], fill=onFirst, outline=self.fillWhite)
         
         
