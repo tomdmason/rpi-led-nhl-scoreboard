@@ -54,13 +54,20 @@ class MlbGameRenderer(CommonRenderer):
         else: # Mid
             self.draw.rectangle([(20,15), (24, 14)],fill=self.fillWhite, outline=self.fillWhite)
 
-        # Count
-
+        self.displayAtBat(game)
 
         self.draw.text((26, 13), str(game['currentInning']), font=self.fontXsReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
+
+    def displayAtBat(self, game):
+        balls = game['linescore']['balls']
+        strikes = game['linescore']['strikes']
+        outs = game['linescore']['outs']
+
+        # Count
+        self.draw.text((32, 24), f'{balls}-{strikes}', font=self.fontXsReg, fill=self.fillWhite)
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
