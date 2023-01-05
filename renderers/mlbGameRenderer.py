@@ -70,7 +70,8 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.text((35, 24), f'{balls}-{strikes}', font=self.fontXsReg, fill=self.fillWhite)
 
         # Outs
-        self.draw.ellipse([(30, 20), (34, 24)], fill=self.fillWhite, outline=self.fillWhite)
+        self.draw.ellipse([(35, 40), (38, 43)], fill=self.fillWhite, outline=self.fillWhite)
+        self.draw.ellipse([(39, 40), (40, 43)], fill=self.fillWhite, outline=self.fillWhite)
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
