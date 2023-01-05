@@ -100,6 +100,9 @@ class MlbGameRenderer(CommonRenderer):
             homeScore (int): Score of the home team.
         """
 
+        fillHome = self.fillWhite if awayScore > homeScore else self.fillRed
+        fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
+
         # Add the hypen to the image.
-        self.draw.text((21,4), str(awayScore), font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((21,21), str(homeScore), font=self.fontSmallReg, fill=(self.fillWhite))
+        self.draw.text((21,2), str(awayScore), font=self.fontMedBold, fill=fillAway)
+        self.draw.text((21,21), str(homeScore), font=self.fontMedBold, fill=fillHome)

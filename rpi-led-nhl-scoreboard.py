@@ -103,8 +103,6 @@ def runScoreboard():
 
         # If there's games today.
         if games:
-
-            # Loop through both the games and gamesOld arrays.
             for game in games:
                 if game['League'] == "nhl":
                     nhlRenderer.render(game)
