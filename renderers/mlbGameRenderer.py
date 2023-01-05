@@ -144,7 +144,7 @@ class MlbGameRenderer(CommonRenderer):
         fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
         self.draw.text((21,1), f'R', font=self.fontXsReg, fill=fillAway)
-        self.draw.text((24,1), f'{awayScore}', font=self.fontSmallReg, fill=fillAway)
+        self.draw.text((24,-1), f'{awayScore}', font=self.fontSmallReg, fill=fillAway)
         self.draw.text((21,7), f'H{awayHits}', font=self.fontXsReg, fill=self.fillWhite)
         
         self.draw.text((21,20), f'R{homeScore}', font=self.fontXsReg, fill=fillHome)
