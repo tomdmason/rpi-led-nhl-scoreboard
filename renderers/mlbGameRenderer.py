@@ -47,11 +47,12 @@ class MlbGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbrev'], game['homeAbbrev'])
 
-        # Add the period to the image.
+        if game['inningState'] == 'Bottom':
+            self.draw.polygon((40,13),fill=(0, 192, 192), outline=(255, 255, 255) )
         
 
         # Add the current score to the image. Note if either team scored.
-        self.displayScore(game['AwayScore'], game['Home Score'])
+        self.displayScore(game)
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
