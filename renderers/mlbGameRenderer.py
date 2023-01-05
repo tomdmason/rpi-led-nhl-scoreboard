@@ -57,7 +57,7 @@ class MlbGameRenderer(CommonRenderer):
         self.displayAtBat(game)
         self.displayBaseRunners(game)
 
-        self.draw.text((47, 15), str(game['currentInning']), font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((47, 12), str(game['currentInning']), font=self.fontSmallReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
