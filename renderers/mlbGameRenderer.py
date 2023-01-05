@@ -149,11 +149,11 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.text((21,6), f'H', font=self.fontSmallReg, fill=self.fillWhite)
         self.draw.text((26,6), f'{awayHits}', font=self.fontSmallReg, fill=self.fillWhite)
         
-        self.draw.text((21,32), f'R', font=self.fontSmallReg, fill=fillHome)
-        self.draw.text((26,32), f'{homeScore}', font=self.fontSmallReg, fill=fillHome)
+        self.draw.text((21,16), f'R', font=self.fontSmallReg, fill=fillHome)
+        self.draw.text((26,16), f'{homeScore}', font=self.fontSmallReg, fill=fillHome)
 
-        self.draw.text((21,39), f'H', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((26,39), f'{homeHits}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((21,23), f'H', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((26,23), f'{homeHits}', font=self.fontSmallReg, fill=self.fillWhite)
 
 
         
