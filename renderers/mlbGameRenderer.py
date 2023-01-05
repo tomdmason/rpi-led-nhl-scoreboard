@@ -115,17 +115,11 @@ class MlbGameRenderer(CommonRenderer):
         awayHits = game['awayHits']
         homeHits = game['homeHits']
 
-        awayErrors = game['awayErrors']
-        homeErrors = game['homeErrors']
-
         fillHome = self.fillWhite if awayScore > homeScore else self.fillRed
         fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
-        self.draw.text((21,2), f'R{awayScore}', font=self.fontXsReg, fill=fillAway)
+        self.draw.text((21,1), f'R{awayScore}', font=self.fontXsReg, fill=fillAway)
+        self.draw.text((21,7), f'H{awayHits}', font=self.fontXsReg, fill=self.fillWhite)
+        
         self.draw.text((21,21), f'R{homeScore}', font=self.fontXsReg, fill=fillHome)
-
-        self.draw.text((31,2), f'H{awayHits}', font=self.fontXsReg, fill=self.fillWhite)
-        self.draw.text((31,21), f'H{homeHits}', font=self.fontXsReg, fill=self.fillWhite)
-
-        self.draw.text((41,2), f'E{awayErrors}', font=self.fontXsReg, fill=self.fillWhite)
-        self.draw.text((41,21), f'E{homeErrors}', font=self.fontXsReg, fill=self.fillWhite)
+        self.draw.text((21,21), f'H{homeHits}', font=self.fontXsReg, fill=self.fillWhite)
