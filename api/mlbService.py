@@ -89,7 +89,7 @@ class MlbService(LeagueApiInterface):
                 'homeErrors': boxscore['teams']['home']['teamStats']['fielding']['errors'],
                 'awayErrors': boxscore['teams']['away']['teamStats']['fielding']['errors'],
                 'status': 'ongoing', # gameData['status']['abstractGameState'],
-                'currentInning': linescore['currentInningOrdinal'],
+                'currentInning': linescore['currentInning'],
                 'inningState': linescore['inningState'],
                 'balls': linescore['balls'],
                 'strikes': linescore['strikes'],
