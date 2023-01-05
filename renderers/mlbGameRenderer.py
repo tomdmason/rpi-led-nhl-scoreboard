@@ -48,13 +48,13 @@ class MlbGameRenderer(CommonRenderer):
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         if game['inningState'] == "Bottom":
-            self.draw.polygon([(20,13), (24, 13), (22,15)],fill=self.fillWhite, outline=self.fillWhite)
+            self.draw.polygon([(20,15), (24, 15), (22,17)],fill=self.fillWhite, outline=self.fillWhite)
         elif game['inningState'] == "Top":
-            self.draw.polygon([(20,15), (24, 15), (22,13)],fill=self.fillWhite, outline=self.fillWhite)
+            self.draw.polygon([(20,17), (24, 17), (22,15)],fill=self.fillWhite, outline=self.fillWhite)
         else: # Mid
             self.draw.rectangle([(20,15), (24, 14)],fill=self.fillWhite, outline=self.fillWhite)
 
-        self.draw.text((25, 11), str(game['currentInning']), font=self.fontMedReg, fill=self.fillWhite)
+        self.draw.text((25, 11), str(game['currentInning']), font=self.fontSmallReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
