@@ -104,18 +104,23 @@ def runScoreboard():
         # If there's games today.
         if games:
             for game in games:
-                if game['league'] == "nhl":
-                    nhlRenderer.render(game)
-                if game['league'] == "mlb":
-                    details = fetchMlbGame(game['gameId'])
-                    mlbRenderer.render(details)
+                try:
+                    if game['league'] == "nhl":
+                        nhlRenderer.render(game)
+                    if game['league'] == "mlb":
+                        details = fetchMlbGame(game['gameId'])
+                        mlbRenderer.render(details)
 
-                fadeIn(maxBrightness, fadeStep)
+                    fadeIn(maxBrightness, fadeStep)
 
-                # Hold the screen before fading.
-                time.sleep(cycleTime)
+                    # Hold the screen before fading.
+                    time.sleep(cycleTime)
 
-                fadeOut(maxBrightness, fadeStep)
+                    fadeOut(maxBrightness, fadeStep)
+                except Exception as e:
+                    print('Failed to render')
+                    print(e)
+                    print(game)
 
         # If there's no games, build the no games today sceen, then wait 10 minutes before checking again.
         else:
