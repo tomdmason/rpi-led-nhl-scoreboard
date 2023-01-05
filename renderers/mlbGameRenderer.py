@@ -48,9 +48,9 @@ class MlbGameRenderer(CommonRenderer):
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         if game['inningState'] != "Top":
-            self.draw.polygon([(43,16), (45, 16), (44,17)],fill=self.fillWhite, outline=self.fillWhite)
+            self.draw.polygon([(43,17), (45, 17), (44,18)],fill=self.fillWhite, outline=self.fillWhite)
         if game['inningState'] != "Bottom":
-            self.draw.polygon([(43,16), (45, 16), (44,15)],fill=self.fillWhite, outline=self.fillWhite)
+            self.draw.polygon([(43,15), (45, 15), (44,14)],fill=self.fillWhite, outline=self.fillWhite)
 
         self.displayAtBat(game)
         self.displayBaseRunners(game)
