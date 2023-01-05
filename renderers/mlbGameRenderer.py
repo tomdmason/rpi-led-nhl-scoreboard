@@ -62,9 +62,9 @@ class MlbGameRenderer(CommonRenderer):
         self.displayScore(game)
 
     def displayAtBat(self, game):
-        balls = game['linescore']['balls']
-        strikes = game['linescore']['strikes']
-        outs = game['linescore']['outs']
+        balls = game['balls']
+        strikes = game['strikes']
+        outs = game['outs']
 
         # Count
         self.draw.text((32, 24), f'{balls}-{strikes}', font=self.fontXsReg, fill=self.fillWhite)
