@@ -104,10 +104,10 @@ def runScoreboard():
         # If there's games today.
         if games:
             for game in games:
-                if game['League'] == "nhl":
+                if game['league'] == "nhl":
                     nhlRenderer.render(game)
-                if game['League'] == "mlb":
-                    details = fetchMlbGame(game['Game ID'])
+                if game['league'] == "mlb":
+                    details = fetchMlbGame(game['gameId'])
                     mlbRenderer.render(details)
 
                 fadeIn(maxBrightness, fadeStep)

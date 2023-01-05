@@ -77,7 +77,7 @@ class NhlService(LeagueApiInterface):
                     'Period Number': game['linescore']['currentPeriod'],
                     'Period Name': perName,
                     'Period Time Remaining': perTimeRem,
-                    'League': 'nhl'
+                    'league': 'nhl'
                 }
 
                 # Append the dict to the games list.

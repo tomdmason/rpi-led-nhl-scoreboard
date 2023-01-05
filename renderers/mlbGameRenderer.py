@@ -17,7 +17,7 @@ class MlbGameRenderer(CommonRenderer):
             # self.buildGameNotStarted(game)
 
         # If the game is over, build the final score screen.
-        if game['Status'] == "Final":
+        if game['status'] == "Final":
             self.buildGameOver(game)
         
         # Otherwise, the game is in progress. Build the game in progress screen.
@@ -45,13 +45,13 @@ class MlbGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         # Add the period to the image.
-        self.displayPeriod(game['Period Number'], game['Period Name'], game['Period Time Remaining'])
+        
 
         # Add the current score to the image. Note if either team scored.
-        self.displayScore(game['Away Score'], game['Home Score'])
+        self.displayScore(game['AwayScore'], game['Home Score'])
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
@@ -62,7 +62,7 @@ class MlbGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         # Add "Final" to the image.
         self.draw.text((19, 11), "F", font=self.fontMedReg, fill=self.fillWhite)
@@ -72,7 +72,7 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.text((36, 13), "l", font=self.fontSmallReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
-        self.displayScore(game['Away Score'], game['Home Score'])
+        self.displayScore(game)
 
         # Add the current score to the image.
         # self.displayScore(game['Away Score'],game['Home Score'])
@@ -85,14 +85,14 @@ class MlbGameRenderer(CommonRenderer):
         """
         
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         # Add "PPD" to the image.
         self.draw.text((self.firstMiddleCol+2,0), "PPD", font=self.fontMedReg, fill=self.fillWhite)
 
     
 
-    def displayScore(self, awayScore, homeScore):
+    def displayScore(self, game):
         """Add the score for both teams to the image object.
 
         Args:
@@ -100,9 +100,18 @@ class MlbGameRenderer(CommonRenderer):
             homeScore (int): Score of the home team.
         """
 
+        awayScore = game['awayRuns']
+        homeScore = game['homeRuns']
+
+        awayHits = game['awayHits']
+        homeHits = game['homeHits']
+
+        awayErrors = game['awayErrors']
+        homeErrors = game['homeErrors']
+
         fillHome = self.fillWhite if awayScore > homeScore else self.fillRed
         fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
         # Add the hypen to the image.
-        self.draw.text((21,2), str(awayScore), font=self.fontMedBold, fill=fillAway)
-        self.draw.text((21,21), str(homeScore), font=self.fontMedBold, fill=fillHome)
+        self.draw.text((21,2), f'R{awayScore} H{awayHits} E{awayErrors}', font=self.fontSmallReg, fill=fillAway)
+        self.draw.text((21,21), f'R{homeScore} H{homeHits} E{homeErrors}', font=self.fontSmallReg, fill=fillHome)

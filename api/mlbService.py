@@ -59,6 +59,7 @@ class MlbService(LeagueApiInterface):
         gameData = feed['gameData']
         teams = gameData['teams']
         linescore = feed['liveData']['linescore']
+        boxscore = feed['liveData']['boxscore']
 
         first = []
         second = []
@@ -76,26 +77,28 @@ class MlbService(LeagueApiInterface):
         try:
             # Prep the dict data.
             return {
-                'Game ID': gameId,
-                'Home Team': teams['home']['name'],
-                'Home Abbreviation': teams['home']['abbreviation'],
-                'Away Team': teams['away']['name'],
-                'Away Abbreviation': teams['away']['abbreviation'],
-                'Home Score': linescore['teams']['home']['runs'],
-                'Away Score': linescore['teams']['away']['runs'],
-                'Home Hits': linescore['teams']['home']['hits'],
-                'Away Hits': linescore['teams']['away']['hits'],
-                'Status': gameData['status']['abstractGameState'],
-                'Current Inning': linescore['currentInningOrdinal'],
-                'Inning State': linescore['inningState'],
-                'Balls': linescore['balls'],
-                'Strikes': linescore['strikes'],
-                'Outs': linescore['outs'],
-                'At Bat': linescore['offense']['batter'],
-                'On First': first,
-                'On Second': second,
-                'On Third': third,
-                'League': "mlb"
+                'gameId': gameId,
+                'homeTeam': teams['home']['name'],
+                'homeAbbrev': teams['home']['abbreviation'],
+                'awayTeam': teams['away']['name'],
+                'awayAbbrev': teams['away']['abbreviation'],
+                'homeRuns': linescore['teams']['home']['runs'],
+                'awayRuns': linescore['teams']['away']['runs'],
+                'homeHits': linescore['teams']['home']['hits'],
+                'awayHits': linescore['teams']['away']['hits'],
+                'homeErrors': boxscore['teams']['home']['teamStats']['fielding']['errors'],
+                'awayErrors': boxscore['teams']['away']['teamStats']['fielding']['errors'],
+                'status': gameData['status']['abstractGameState'],
+                'currentInning': linescore['currentInningOrdinal'],
+                'inningState': linescore['inningState'],
+                'balls': linescore['balls'],
+                'strikes': linescore['strikes'],
+                'outs': linescore['outs'],
+                'atBat': linescore['offense']['batter'],
+                'onFirst': first,
+                'onSecond': second,
+                'onThird': third,
+                'league': "mlb"
             }                    
         except Exception as e:
             print("Caught")
