@@ -17,6 +17,9 @@ class CommonRenderer:
             self.fontLargeReg = ImageFont.load("assets/fonts/PIL/Tamzen8x15r.pil")
             self.fontLargeBold = ImageFont.load("assets/fonts/PIL/Tamzen8x15b.pil")
 
+            self.fontMonteBold = ImageFont.load("assets/fonts/PIL/MonteCarloBold.pil")
+            self.fontMonteReg = ImageFont.load("assets/fonts/PIL/MonteCarloMedium.pil")
+
 
             # Declare text colours that are needed.
             self.fillWhite = 255,255,255,255
