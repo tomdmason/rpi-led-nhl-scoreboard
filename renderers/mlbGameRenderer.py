@@ -83,7 +83,7 @@ class MlbGameRenderer(CommonRenderer):
         onThird = game['onThird']
 
         self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=None, outline=self.fillWhite)
-        self.draw.polygon([(49, 7), (51, 5), (53, 7), (51, 9)], fill=None, outline=self.fillWhite)
+        self.draw.polygon([(50, 8), (52, 6), (54, 8), (52, 10)], fill=None, outline=self.fillWhite)
         # self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=None, outline=self.fillWhite)
 
 
