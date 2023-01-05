@@ -78,13 +78,16 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.ellipse([(54, 24), (58, 28)], fill=fillTwo, outline=self.fillWhite)
 
     def displayBaseRunners(self, game):
-        onFirst = game['onFirst']
-        onSecond = game['onSecond']
-        onThird = game['onThird']
+        onFirst = self.fillWhite if game['onFirst'] else None
+        onSecond = self.fillWhite if game['onSecond'] else None
+        onThird = self.fillWhite if game['onThird'] else None
 
-        self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=None, outline=self.fillWhite)
-        self.draw.polygon([(50, 8), (52, 6), (54, 8), (52, 10)], fill=None, outline=self.fillWhite)
-        self.draw.polygon([(42, 8), (44, 6), (46, 8), (44, 10)], fill=None, outline=self.fillWhite)
+        print(onFirst, onSecond, onThird)
+
+        self.draw.polygon([(42, 8), (44, 6), (46, 8), (44, 10)], fill=onFirst, outline=self.fillWhite)
+        self.draw.polygon([(46, 4), (48, 2), (50, 4), (48, 6)], fill=onSecond, outline=self.fillWhite)
+        self.draw.polygon([(50, 8), (52, 6), (54, 8), (52, 10)], fill=onThird, outline=self.fillWhite)
+        
         
 
 
