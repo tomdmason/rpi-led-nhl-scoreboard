@@ -16,6 +16,8 @@ class CommonRenderer:
             self.fontMedBold = ImageFont.load("assets/fonts/PIL/Tamzen6x12b.pil")
             self.fontLargeReg = ImageFont.load("assets/fonts/PIL/Tamzen8x15r.pil")
             self.fontLargeBold = ImageFont.load("assets/fonts/PIL/Tamzen8x15b.pil")
+            self.fontRoboto18 = ImageFont.truetype("assets/fonts/Roboto-Regular.ttf", 18)
+
 
             # Declare text colours that are needed.
             self.fillWhite = 255,255,255,255

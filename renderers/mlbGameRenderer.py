@@ -45,7 +45,7 @@ class MlbGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
+        self.displayLogos(game['league'],game['awayAbbrev'], game['homeAbbrev'])
 
         # Add the period to the image.
         
@@ -113,5 +113,5 @@ class MlbGameRenderer(CommonRenderer):
         fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
         # Add the hypen to the image.
-        self.draw.text((21,2), f'R{awayScore} H{awayHits} E{awayErrors}', font=self.fontSmallReg, fill=fillAway)
+        self.draw.text((21,2), f'R{awayScore} H{awayHits} E{awayErrors}', font=self.fontRoboto18, fill=fillAway)
         self.draw.text((21,21), f'R{homeScore} H{homeHits} E{homeErrors}', font=self.fontSmallReg, fill=fillHome)
