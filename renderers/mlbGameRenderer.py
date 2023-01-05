@@ -76,6 +76,8 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.ellipse([(48, 24), (52, 28)], fill=fillOne, outline=self.fillWhite)
         self.draw.ellipse([(54, 24), (58, 28)], fill=fillTwo, outline=self.fillWhite)
 
+        print(outs, fillOne, fillTwo)
+
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
 
