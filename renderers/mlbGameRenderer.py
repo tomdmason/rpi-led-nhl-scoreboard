@@ -55,6 +55,7 @@ class MlbGameRenderer(CommonRenderer):
             self.draw.rectangle([(20,15), (24, 14)],fill=self.fillWhite, outline=self.fillWhite)
 
         self.displayAtBat(game)
+        self.displayBaseRunners(game)
 
         self.draw.text((26, 13), str(game['currentInning']), font=self.fontXsReg, fill=self.fillWhite)
 
@@ -66,7 +67,6 @@ class MlbGameRenderer(CommonRenderer):
         strikes = game['strikes']
         outs = game['outs']
 
-        outs = 1
         # Count
         self.draw.text((35, 24), f'{balls}-{strikes}', font=self.fontXsReg, fill=self.fillWhite)
 
@@ -77,7 +77,13 @@ class MlbGameRenderer(CommonRenderer):
         self.draw.ellipse([(48, 24), (52, 28)], fill=fillOne, outline=self.fillWhite)
         self.draw.ellipse([(54, 24), (58, 28)], fill=fillTwo, outline=self.fillWhite)
 
-        print(outs, fillOne, fillTwo)
+    def displayBaseRunners(self, game):
+        onFirst = game['onFirst']
+        onSecond = game['onSecond']
+        onThird = game['onThird']
+
+        self.draw.regular_polygon(((48, 4), 4), 4, 90, fill=None, outline=self.fillWhite)
+
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
