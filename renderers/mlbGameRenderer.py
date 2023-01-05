@@ -57,7 +57,7 @@ class MlbGameRenderer(CommonRenderer):
         # Count
 
 
-        self.draw.text((25, 11), str(game['currentInning']), font=self.fontXsReg, fill=self.fillWhite)
+        self.draw.text((25, 14), str(game['currentInning']), font=self.fontXsReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
