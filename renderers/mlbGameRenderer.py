@@ -66,6 +66,7 @@ class MlbGameRenderer(CommonRenderer):
         strikes = game['strikes']
         outs = game['outs']
 
+        outs = 1
         # Count
         self.draw.text((35, 24), f'{balls}-{strikes}', font=self.fontXsReg, fill=self.fillWhite)
 
