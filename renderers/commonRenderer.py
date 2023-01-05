@@ -20,6 +20,8 @@ class CommonRenderer:
             self.fontMonteBold = ImageFont.load("assets/fonts/PIL/MonteCarloBold.pil")
             self.fontMonteReg = ImageFont.load("assets/fonts/PIL/MonteCarloMedium.pil")
 
+            self.fontXsReg = ImageFont.load("assets/fonts/PIL/4x6.pil")
+
 
             # Declare text colours that are needed.
             self.fillWhite = 255,255,255,255
