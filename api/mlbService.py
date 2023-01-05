@@ -37,8 +37,8 @@ class MlbService(LeagueApiInterface):
                 try:
                     # Prep the dict data.
                     gameDict = {
-                        'Game ID': game['gamePk'],
-                        'League': "mlb"
+                        'gameId': game['gamePk'],
+                        'league': "mlb"
                     }                    
                 except Exception as e:
                     print("Caught")
@@ -49,7 +49,7 @@ class MlbService(LeagueApiInterface):
                 games.append(gameDict)
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
-                games.sort(key=lambda x:x['Game ID'])
+                games.sort(key=lambda x:x['gameId'])
         return games
 
     def getGameDetails(self, gameId):
