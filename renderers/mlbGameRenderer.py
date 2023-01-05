@@ -66,10 +66,10 @@ class MlbGameRenderer(CommonRenderer):
 
         # Add "Final" to the image.
         self.draw.text((19, 11), "F", font=self.fontMedReg, fill=self.fillWhite)
-        self.draw.text((22, 13), "i", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((26, 13), "n", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((30, 13), "a", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((34, 13), "l", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((23, 13), "i", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((28, 13), "n", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((32, 13), "a", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((36, 13), "l", font=self.fontSmallReg, fill=self.fillWhite)
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game['Away Score'], game['Home Score'])
@@ -101,5 +101,5 @@ class MlbGameRenderer(CommonRenderer):
         """
 
         # Add the hypen to the image.
-        self.draw.text((24,4), str(awayScore), font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((24,21), str(homeScore), font=self.fontSmallReg, fill=(self.fillWhite))
+        self.draw.text((21,4), str(awayScore), font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((21,21), str(homeScore), font=self.fontSmallReg, fill=(self.fillWhite))
