@@ -47,12 +47,10 @@ class MlbGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
-        if game['inningState'] == "Bottom":
-            self.draw.polygon([(44,15), (46, 15), (45,16)],fill=self.fillWhite, outline=self.fillWhite)
-        elif game['inningState'] == "Top":
-            self.draw.polygon([(44,15), (46, 15), (45,14)],fill=self.fillWhite, outline=self.fillWhite)
-        else: # Mid
-            self.draw.rectangle([(44,15), (46, 14)],fill=self.fillWhite, outline=self.fillWhite)
+        if game['inningState'] != "Top":
+            self.draw.polygon([(43,16), (45, 16), (44,17)],fill=self.fillWhite, outline=self.fillWhite)
+        elif game['inningState'] != "Bottom":
+            self.draw.polygon([(43,15), (45, 15), (44,14)],fill=self.fillWhite, outline=self.fillWhite)
 
         self.displayAtBat(game)
         self.displayBaseRunners(game)
