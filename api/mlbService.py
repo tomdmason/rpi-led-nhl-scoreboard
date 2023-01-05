@@ -74,7 +74,6 @@ class MlbService(LeagueApiInterface):
         if 'third' in linescore['offense']:
             third = linescore['offense']['third']
 
-        print(first, second, third)
         try:
             # Prep the dict data.
             return {
