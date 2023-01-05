@@ -47,7 +47,8 @@ class MlbGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
-        if game['inningState'] == 'Bottom':
+        print(game['inningState'])
+        if game['inningState'] == "Bottom":
             self.draw.polygon([(20,13), (24, 13), (22,15)],fill=(0, 192, 192), outline=self.fillWhite)
         else:
             self.draw.polygon([(20,15), (24, 15), (22,13)],fill=(0, 192, 192), outline=self.fillWhite)
