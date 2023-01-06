@@ -107,6 +107,8 @@ def runScoreboard():
             if games[0]['league'] == 'mlb':
                 details = fetchMlbGame(games[0]['gameId'])
 
+            print(games[400])
+
             for i, game in enumerate(games):
                 try:
                     if game['league'] == "nhl":
