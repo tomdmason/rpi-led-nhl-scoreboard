@@ -7,17 +7,15 @@ def fetchGameData ():
     nhlService = NhlService()
     mlbService = MlbService()
 
-    services = [nhlService, mlbService]
-
     networkError = False
     games = []
 
     # Try to get team and game data. Max of 100 attempts before it gives up.
     for i in range(100):
         try:
-            for service in services:
-                games.append(service.getGameData())
-            
+            mlb = mlbService.getGameData()
+            nhl = nhlService.getGameData()
+            games =  mlb + nhl
             random.shuffle(games)
             networkError = False
             break
