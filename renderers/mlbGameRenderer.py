@@ -66,16 +66,16 @@ class MlbGameRenderer(CommonRenderer):
         outs = game['outs']
 
         # Count
-        self.draw.text((35, 22), f'{balls}-{strikes}', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((37, 22), f'-', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((39, 22), f'{strikes}', font=self.fontSmallReg, fill=self.fillWhite)
+        # self.draw.text((35, 22), f'{balls}-{strikes}', font=self.fontSmallReg, fill=self.fillWhite)
+        # self.draw.text((37, 22), f'-', font=self.fontSmallReg, fill=self.fillWhite)
+        # self.draw.text((39, 22), f'{strikes}', font=self.fontSmallReg, fill=self.fillWhite)
 
         fillOne = self.fillWhite if outs > 0 else None
         fillTwo = self.fillWhite if outs > 1 else None
 
         # Outs
-        self.draw.ellipse([(48, 24), (52, 28)], fill=fillOne, outline=self.fillWhite)
-        self.draw.ellipse([(54, 24), (58, 28)], fill=fillTwo, outline=self.fillWhite)
+        self.draw.ellipse([(48, 24), (50, 26)], fill=fillOne, outline=self.fillWhite)
+        self.draw.ellipse([(54, 24), (56, 26)], fill=fillTwo, outline=self.fillWhite)
 
     def displayBaseRunners(self, game):
         onFirst = self.fillWhite if game['onFirst'] else None
