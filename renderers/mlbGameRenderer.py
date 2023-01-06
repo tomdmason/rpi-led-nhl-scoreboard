@@ -74,8 +74,8 @@ class MlbGameRenderer(CommonRenderer):
         fillTwo = self.fillWhite if outs > 1 else None
 
         # Outs
-        self.draw.ellipse([(48, 24), (51, 27)], fill=fillOne, outline=self.fillWhite)
-        self.draw.ellipse([(54, 24), (57, 27)], fill=fillTwo, outline=self.fillWhite)
+        self.draw.ellipse([(48, 24), (52, 28)], fill=fillOne, outline=self.fillWhite)
+        self.draw.ellipse([(54, 24), (58, 28)], fill=fillTwo, outline=self.fillWhite)
 
     def displayBaseRunners(self, game):
         onFirst = self.fillWhite if game['onFirst'] else None
