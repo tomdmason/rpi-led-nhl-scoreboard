@@ -116,9 +116,13 @@ def runScoreboard():
 
                     fadeIn(maxBrightness, fadeStep)
 
+                    
                     if len(games) < i:
                         if games[i+1]['league'] == 'mlb':
                             details = fetchMlbGame(games[i+1]['gameId'])
+                    else:
+                        if games[0]['league'] == 'mlb':
+                            details = fetchMlbGame(games[0]['gameId'])
 
                     # Hold the screen before fading.
                     time.sleep(cycleTime)
