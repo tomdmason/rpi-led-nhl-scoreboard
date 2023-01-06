@@ -47,6 +47,8 @@ class MlbService(LeagueApiInterface):
 
                 # Append the dict to the games list.
                 games.append(gameDict)
+                if len(games) == 2:
+                    break
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
                 games.sort(key=lambda x:x['gameId'])
