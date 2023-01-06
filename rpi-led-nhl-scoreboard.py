@@ -103,13 +103,16 @@ def runScoreboard():
 
         # If there's games today.
         if games:
-            for game in games:
+            for i, game in enumerate(games):
                 try:
                     if game['league'] == "nhl":
                         nhlRenderer.render(game)
                     if game['league'] == "mlb":
                         details = fetchMlbGame(game['gameId'])
                         mlbRenderer.render(details)
+
+                    if games[i+1]['league'] == 'mlb':
+                        print('next game mlb')
 
                     fadeIn(maxBrightness, fadeStep)
 
