@@ -105,7 +105,7 @@ def runScoreboard():
         if games:
 
             if games[0]['league'] == 'mlb':
-                details = fetchMlbGame(games[i+1]['gameId'])
+                details = fetchMlbGame(games[0]['gameId'])
 
             for i, game in enumerate(games):
                 try:
