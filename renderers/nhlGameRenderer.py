@@ -29,7 +29,7 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
 
         # Add "Today" to the image.
         self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
