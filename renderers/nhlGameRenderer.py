@@ -78,7 +78,7 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
 
         # Add the period to the image.
         self.displayPeriod(game['Period Number'], game['Period Name'], game['Period Time Remaining'])
@@ -95,7 +95,7 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
 
         # Add "Final" to the image.
         self.draw.text((self.firstMiddleCol+1,0), "F", font=self.fontMedReg, fill=self.fillWhite)
@@ -122,7 +122,7 @@ class NhlGameRenderer(CommonRenderer):
         """
         
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['League'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
 
         # Add "PPD" to the image.
         self.draw.text((self.firstMiddleCol+2,0), "PPD", font=self.fontMedReg, fill=self.fillWhite)
