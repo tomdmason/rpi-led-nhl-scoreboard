@@ -30,7 +30,6 @@ def fetchGameData ():
     if networkError == True:
         raise Exception("Unable to fetch game data")
 
-    print(games)
 
     return games
         

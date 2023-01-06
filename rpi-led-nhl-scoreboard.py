@@ -116,11 +116,13 @@ def runScoreboard():
 
                     fadeIn(maxBrightness, fadeStep)
 
-                    
+                    print(f'Index: {i}, Games: {len(games)}')
                     if len(games) < i:
+                        print(f'Fetching {i+1}')
                         if games[i+1]['league'] == 'mlb':
                             details = fetchMlbGame(games[i+1]['gameId'])
                     else:
+                        print(f'Fetching Zero')
                         if games[0]['league'] == 'mlb':
                             details = fetchMlbGame(games[0]['gameId'])
 
