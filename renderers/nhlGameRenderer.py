@@ -152,8 +152,8 @@ class NhlGameRenderer(CommonRenderer):
         # Minutes.
         self.draw.text((self.firstMiddleCol+3,12), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
         # Colon.
-        self.draw.rectangle(((self.firstMiddleCol+8,15),(self.firstMiddleCol+8,12)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+8,17),(self.firstMiddleCol+8,14)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+8,15),(self.firstMiddleCol+8,15)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+8,17),(self.firstMiddleCol+8,17)), fill=self.fillWhite)
         # Seconds.
         self.draw.text((self.firstMiddleCol+10,12), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite)
         self.draw.text((self.firstMiddleCol+15,12), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
