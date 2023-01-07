@@ -23,6 +23,7 @@ def fetchGameData ():
             # In the event that the NHL API cannot be reached, set the bottom right LED to red.
             # TODO: Make this more robust for specific fail cases.
         except Exception as e:
+            print('Service Error')
             print(e)
             networkError = True
             time.sleep(1)
