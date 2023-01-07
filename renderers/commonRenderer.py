@@ -53,9 +53,10 @@ class CommonRenderer:
         homeLogo = imageUtil.cropImage(homeLogo)
         homeLogo.thumbnail(logoSize)
 
-        _, homeLogoHeight = homeLogo.size
+        awayLogoWidth, awayLogoHeight = awayLogo.size
+        homeLogoWidth, homeLogoHeight = homeLogo.size
 
         # Add the logos to the image.
         # Logos will be bounded by the text region, and be centered vertically.
-        self.image.paste(awayLogo, (2, 0))
-        self.image.paste(homeLogo, (2, 32 - homeLogoHeight))
+        self.image.paste(awayLogo, (2, 8-(awayLogoHeight / 2)))
+        self.image.paste(homeLogo, (2, 24 - (homeLogoHeight / 2)))
