@@ -9,8 +9,8 @@ class MlbGameRenderer(CommonRenderer):
 
     def render(self, game):
         # If the game is postponed, build the postponed screen.
-        # if game['Status'] == "Postponed":
-            # self.buildGamePostponed(game)
+        if game['status'] == "Postponed":
+            self.buildGamePostponed(game)
 
         # If the game has yet to begin, build the game not started screen.
         if game['status'] == "Preview":
