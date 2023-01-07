@@ -35,15 +35,8 @@ class NhlGameRenderer(CommonRenderer):
         startTime = game['startTimeLocal']
         startTime = startTime.time().strftime('%-I:%M %p')
         startTime = str(startTime) # Cast to a string for easier parsing.
-
-        # Minutes.
-        self.draw.text((self.firstMiddleCol+1,12), startTime[1], font=self.fontSmallReg, fill=self.fillWhite)
-        # Colon.
-        self.draw.rectangle(((self.firstMiddleCol+6,15),(self.firstMiddleCol+8,15)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+6,17),(self.firstMiddleCol+8,17)), fill=self.fillWhite)
-        # Seconds.
-        self.draw.text((self.firstMiddleCol+8,12), startTime[3], font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+13,12), startTime[4], font=self.fontSmallReg, fill=self.fillWhite)
+        
+        self.draw.text((self.firstMiddleCol+1,12), startTime, font=self.fontSmallReg, fill=self.fillWhite)
         
 
     def buildGameInProgress(self, game):

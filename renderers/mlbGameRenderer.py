@@ -36,9 +36,18 @@ class MlbGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
-        time = game['dateTime']['time']
+        time = game['dateTime']['time'].split(':')
         ampm = game['dateTime']['ampm']
-        self.draw.text((self.firstMiddleCol+1,0), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        spacer = 5 if int(time[0]) > 9 else 1
+
+        self.draw.text((self.firstMiddleCol+spacer,0), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        self.draw.rectangle(((self.firstMiddleCol+spacer+2,15),(self.firstMiddleCol+8,15)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+2,17),(self.firstMiddleCol+8,17)), fill=self.fillWhite)
+
+        self.draw.text((self.firstMiddleCol+spacer+7,0), f'{time[1]}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+spacer+12,0), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
 
         
         self.draw.text((self.firstMiddleCol+1,8), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
