@@ -1,4 +1,6 @@
 from renderers.commonRenderer import CommonRenderer
+from PIL import Image, ImageDraw, ImageFont
+from util import imageUtil
 
 class NhlGameRenderer(CommonRenderer):
     def __init__(self, matrix, image, draw) -> None:
@@ -20,6 +22,13 @@ class NhlGameRenderer(CommonRenderer):
         # Otherwise, the game is in progress. Build the game in progress screen.
         else:
             self.buildGameInProgress(game)
+
+    def buildNoGames(self):
+        logo = Image.open("assets/images/NHL_Logo.png")
+        logo = imageUtil.cropImage(logo)
+        logo.thumbnail((32,32))
+        self.image.paste(logo, (16, 4))
+        self.draw.text((12, 22), f'No games', font=self.fontSmallReg, fill=self.fillWhite)
 
     def buildGameNotStarted(self, game):
         """Adds all aspects of the game not started screen to the image object.
