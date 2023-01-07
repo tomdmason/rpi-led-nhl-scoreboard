@@ -80,6 +80,12 @@ class MlbService(LeagueApiInterface):
         if 'third' in linescore['offense']:
             third = linescore['offense']['third']
 
+        awayStartingPitcher = gameData['probablePitchers']['away']['id']
+        awayStartingPitcher = gameData['players'][f'ID{awayStartingPitcher}']['lastName']
+
+        homeStartingPitcher = gameData['probablePitchers']['home']['id']
+        homeStartingPitcher = gameData['players'][f'ID{homeStartingPitcher}']['lastName']
+
         try:
             # Prep the dict data.
             return {
@@ -105,7 +111,8 @@ class MlbService(LeagueApiInterface):
                 'onSecond': second,
                 'onThird': third,
                 'dateTime': gameData['datetime'],
-                'probablePitchers': gameData['probablePitchers'],
+                'homeStartingPitcher': homeStartingPitcher,
+                'awayStartingPitcher': awayStartingPitcher,
                 'league': "mlb"
             }                    
         except Exception as e:

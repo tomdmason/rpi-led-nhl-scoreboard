@@ -33,6 +33,9 @@ class MlbGameRenderer(CommonRenderer):
             game (dict): All information for a specific game.
         """
 
+        # Add the logos of the teams inivolved to the image.
+        self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
+
          # Add "Today" to the image.
         self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
         self.draw.text((self.firstMiddleCol+5,2), "o", font=self.fontSmallReg, fill=self.fillWhite)
@@ -42,9 +45,13 @@ class MlbGameRenderer(CommonRenderer):
 
         time = game['dateTime']['time']
         ampm = game['dateTime']['ampm']
-        self.draw.text((self.firstMiddleCol+1,10), f'{time}{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,10), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
 
-        print(game['probablePitchers'])
+        
+        self.draw.text((self.firstMiddleCol+1,16), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,24), game['homeStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
+
+
 
     def buildGameInProgress(self, game):
         """Adds all aspects of the game in progress screen to the image object.
