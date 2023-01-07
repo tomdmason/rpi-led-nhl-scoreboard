@@ -193,8 +193,8 @@ class NhlGameRenderer(CommonRenderer):
             homeScore (int): Score of the home team.
         """
 
-        fillHome = self.fillWhite if awayScore > homeScore else self.fillRed
-        fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
+        fillHome = self.fillWhite if awayScore > homeScore or awayScore == homeScore else self.fillRed
+        fillAway = self.fillWhite if awayScore < homeScore or awayScore == homeScore else self.fillRed
 
         self.draw.text((26,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
         
