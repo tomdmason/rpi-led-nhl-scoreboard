@@ -36,8 +36,14 @@ class NhlGameRenderer(CommonRenderer):
         startTime = startTime.time().strftime('%-I:%M %p')
         startTime = str(startTime) # Cast to a string for easier parsing.
 
-        
-        self.draw.text((self.firstMiddleCol+1,12), startTime, font=self.fontSmallReg, fill=self.fillWhite)
+        # Minutes.
+        self.draw.text((self.firstMiddleCol+1,12), startTime[1], font=self.fontSmallReg, fill=self.fillWhite)
+        # Colon.
+        self.draw.rectangle(((self.firstMiddleCol+6,15),(self.firstMiddleCol+8,15)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+6,17),(self.firstMiddleCol+8,17)), fill=self.fillWhite)
+        # Seconds.
+        self.draw.text((self.firstMiddleCol+8,12), startTime[3], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+13,12), startTime[4], font=self.fontSmallReg, fill=self.fillWhite)
         
 
     def buildGameInProgress(self, game):
@@ -110,29 +116,29 @@ class NhlGameRenderer(CommonRenderer):
 
         # If the first period, add "1st" to the image.
         if periodNumber == 1:
-            self.draw.text((self.firstMiddleCol+5,0), "1", font=self.fontMedReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+9,0), "s", font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+13,0), "t", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+5,2), "1", font=self.fontMedReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+9,2), "s", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+13,2), "t", font=self.fontSmallReg, fill=self.fillWhite)
 
         # If the second period, add "2nd" to the image.
         elif periodNumber == 2:
-            self.draw.text((self.firstMiddleCol+4,0), "2", font=self.fontMedReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+10,0), "n", font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+14,0), "d", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+4,2), "2", font=self.fontMedReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+10,2), "n", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+14,2), "d", font=self.fontSmallReg, fill=self.fillWhite)
 
         # If the third period, add "3rd" to the image.
         elif periodNumber == 3:
-            self.draw.text((self.firstMiddleCol+4,0), "3", font=self.fontMedReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+10,0), "r", font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+14,0), "d", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+4,2), "3", font=self.fontMedReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+10,2), "r", font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+14,2), "d", font=self.fontSmallReg, fill=self.fillWhite)
 
         # If in overtime/shootout, add that to the image.
         elif periodName == "OT" or periodName == "SO":
-            self.draw.text((self.firstMiddleCol+5,0), periodName, font=self.fontMedReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+5,2), periodName, font=self.fontSmallReg, fill=self.fillWhite)
 
         # Otherwise, we're in 2OT or later. Add that to the image.
         else:
-            self.draw.text((self.firstMiddleCol+3,0), periodName, font=self.fontMedReg, fill=self.fillWhite)
+            self.draw.text((self.firstMiddleCol+3,2), periodName, font=self.fontSmallReg, fill=self.fillWhite)
 
         # If not in the SO, and the period not over, add the time remaining in the period to the image.
         if periodName != "SO":
@@ -141,7 +147,7 @@ class NhlGameRenderer(CommonRenderer):
 
             # If not in the SO and the time remaining is "END", then we know that we're in intermission. Don't add time remaininig to the image.
             else:
-                self.draw.text((self.firstMiddleCol+2,8), "INT", font=self.fontMedReg, fill=self.fillWhite)
+                self.draw.text((self.firstMiddleCol+2,8), "INT", font=self.fontSmallReg, fill=self.fillWhite)
 
     def displayTimeRemaing(self, timeRemaining):
         """Adds the remaining time in the period to the image. Takes into account diffent widths of time remaining.
