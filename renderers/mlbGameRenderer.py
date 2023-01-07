@@ -38,10 +38,10 @@ class MlbGameRenderer(CommonRenderer):
 
         time = game['dateTime']['time']
         ampm = game['dateTime']['ampm']
-        self.draw.text((self.firstMiddleCol+1,2), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,0), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
 
         
-        self.draw.text((self.firstMiddleCol+1,12), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,8), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
         self.draw.text((self.firstMiddleCol+1,24), game['homeStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
 
 
