@@ -13,7 +13,7 @@ class MlbGameRenderer(CommonRenderer):
             # self.buildGamePostponed(game)
 
         # If the game has yet to begin, build the game not started screen.
-        if game['Status'] == "Preview":
+        if game['status'] == "Preview":
             self.buildGameNotStarted(game)
 
         # If the game is over, build the final score screen.
