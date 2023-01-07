@@ -7,6 +7,12 @@ class NhlGameRenderer(CommonRenderer):
         super().__init__(matrix, image, draw)
 
     def render(self, game):
+
+        # If the GameId is the NO_GAME indicator, render no games
+        if game['gameId'] == 'NO_GAMES':
+            self.buildNoGames()
+            return
+
         # If the game is postponed, build the postponed screen.
         if game['detailedStatus'] == "Postponed":
             self.buildGamePostponed(game)
