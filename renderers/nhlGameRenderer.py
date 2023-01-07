@@ -33,11 +33,11 @@ class NhlGameRenderer(CommonRenderer):
 
         # Extract the start time in 12 hour format.
         startTime = game['startTimeLocal']
-        startTime = startTime.time().strftime('%I:%M %p')
+        startTime = startTime.time().strftime('%-I:%M %p')
         startTime = str(startTime) # Cast to a string for easier parsing.
 
         
-        self.draw.text((self.firstMiddleCol+3,22), startTime, font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,0), startTime, font=self.fontSmallReg, fill=self.fillWhite)
         
 
     def buildGameInProgress(self, game):
