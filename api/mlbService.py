@@ -62,31 +62,32 @@ class MlbService(LeagueApiInterface):
         feed = requests.get(url=f'https://statsapi.mlb.com/api/v1.1/game/{gameId}/feed/live')
         feed = feed.json()
 
-        gameData = feed['gameData']
-        teams = gameData['teams']
-        linescore = feed['liveData']['linescore']
-        boxscore = feed['liveData']['boxscore']
-
-        first = []
-        second = []
-        third = []
-
-        if 'first' in linescore['offense']:
-            first = linescore['offense']['first']
-
-        if 'second' in linescore['offense']:
-            second = linescore['offense']['second']
-
-        if 'third' in linescore['offense']:
-            third = linescore['offense']['third']
-
-        awayStartingPitcher = gameData['probablePitchers']['away']['id']
-        awayStartingPitcher = gameData['players'][f'ID{awayStartingPitcher}']['lastName']
-
-        homeStartingPitcher = gameData['probablePitchers']['home']['id']
-        homeStartingPitcher = gameData['players'][f'ID{homeStartingPitcher}']['lastName']
-
         try:
+            gameData = feed['gameData']
+            teams = gameData['teams']
+            linescore = feed['liveData']['linescore']
+            boxscore = feed['liveData']['boxscore']
+
+            first = []
+            second = []
+            third = []
+
+            if 'first' in linescore['offense']:
+                first = linescore['offense']['first']
+
+            if 'second' in linescore['offense']:
+                second = linescore['offense']['second']
+
+            if 'third' in linescore['offense']:
+                third = linescore['offense']['third']
+
+            awayStartingPitcher = gameData['probablePitchers']['away']['id']
+            awayStartingPitcher = gameData['players'][f'ID{awayStartingPitcher}']['lastName']
+
+            homeStartingPitcher = gameData['probablePitchers']['home']['id']
+            homeStartingPitcher = gameData['players'][f'ID{homeStartingPitcher}']['lastName']
+
+
             # Prep the dict data.
             return {
                 'gameId': gameId,
