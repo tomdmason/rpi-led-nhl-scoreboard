@@ -41,10 +41,10 @@ class MlbGameRenderer(CommonRenderer):
 
         spacer = 5 if int(time[0]) > 9 else 1
 
-        self.draw.text((self.firstMiddleCol+spacer,0), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1, 0), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
 
-        self.draw.rectangle(((self.firstMiddleCol+spacer+4,2),(self.firstMiddleCol+spacer+4,2)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+spacer+4,4),(self.firstMiddleCol+spacer+4,4)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+5,3),(self.firstMiddleCol+spacer+5,3)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+5,5),(self.firstMiddleCol+spacer+5,5)), fill=self.fillWhite)
 
         self.draw.text((self.firstMiddleCol+spacer+7,0), f'{time[1]}', font=self.fontSmallReg, fill=self.fillWhite)
         self.draw.text((self.firstMiddleCol+spacer+18,0), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
