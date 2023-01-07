@@ -122,9 +122,6 @@ class MlbGameRenderer(CommonRenderer):
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
 
-        # Add the current score to the image.
-        # self.displayScore(game['Away Score'],game['Home Score'])
-
     def buildGamePostponed(self, game):
         """Adds all aspects of the postponed screen to the image object.
 

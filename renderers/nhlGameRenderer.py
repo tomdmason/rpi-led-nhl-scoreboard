@@ -193,8 +193,9 @@ class NhlGameRenderer(CommonRenderer):
             homeScore (int): Score of the home team.
         """
 
-        # Add the hypen to the image.
-        self.draw.text((self.firstMiddleCol+9,20), "-", font=self.fontSmallBold, fill=self.fillWhite)
+        fillHome = self.fillWhite if awayScore > homeScore else self.fillRed
+        fillAway = self.fillWhite if awayScore < homeScore else self.fillRed
 
-        self.draw.text((self.firstMiddleCol+1,17), str(awayScore), font=self.fontLargeBold, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+13,17), str(homeScore), font=self.fontLargeBold, fill=(self.fillWhite))
+        self.draw.text((26,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
+        
+        self.draw.text((26,16), f'{homeScore}', font=self.fontLargeBold, fill=fillHome)
