@@ -83,6 +83,7 @@ class NhlService(LeagueApiInterface):
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
                 games.sort(key=lambda x:x['gameId'])
+        games = []
 
         if len(games) == 0:
             games.append({
