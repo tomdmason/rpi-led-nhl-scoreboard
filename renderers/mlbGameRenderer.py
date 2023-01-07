@@ -138,7 +138,11 @@ class MlbGameRenderer(CommonRenderer):
         self.displayScore(game)
 
     def buildNoGames(self):
-        self.draw.text((41, 22), f'No games MLB', font=self.fontSmallReg, fill=self.fillWhite)
+        mlbLogo = Image.open("assets/images/MLB_Logo.png")
+        mlbLogo = imageUtil.cropImage(mlbLogo)
+        mlbLogo.thumbnail((16,60))
+        self.image.paste(mlbLogo, (16, 8))
+        self.draw.text((21, 22), f'No games MLB', font=self.fontSmallReg, fill=self.fillWhite)
 
     def buildGamePostponed(self, game):
         """Adds all aspects of the postponed screen to the image object.
