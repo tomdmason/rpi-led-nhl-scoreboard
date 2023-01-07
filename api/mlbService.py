@@ -9,7 +9,7 @@ class MlbService(LeagueApiInterface):
         super().__init__()
         self.BASE_URL = "https://statsapi.mlb.com/api/v1/"
         self.ENDPOINT_TEAMS = "teams?sportId=1"
-        self.ENDPOINT_SCHEDULE = "schedule?sportId=1&date=07/10/2022"
+        self.ENDPOINT_SCHEDULE = "schedule?sportId=1" #&date=07/10/2022"
 
     def getGameData(self):
         """Get game data for all of todays games from the NHL API, returns games as a list of dictionaries.
@@ -59,6 +59,10 @@ class MlbService(LeagueApiInterface):
         return games
 
     def getGameDetails(self, gameId):
+
+        if gameId == 'NO_GAMES':
+            return {'gameId': 'NO_GAMES'}
+
         feed = requests.get(url=f'https://statsapi.mlb.com/api/v1.1/game/{gameId}/feed/live')
         feed = feed.json()
 

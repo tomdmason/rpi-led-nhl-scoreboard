@@ -8,6 +8,12 @@ class MlbGameRenderer(CommonRenderer):
         super().__init__(matrix, image, draw)
 
     def render(self, game):
+
+        # If the GameId is the NO_GAME indicator, render no games
+        if game['gameId'] == 'NO_GAMES':
+            self.buildNoGames()
+            return
+
         # If the game is postponed, build the postponed screen.
         if game['status'] == "Postponed":
             self.buildGamePostponed(game)
@@ -130,6 +136,9 @@ class MlbGameRenderer(CommonRenderer):
 
         # Add the current score to the image. Note if either team scored.
         self.displayScore(game)
+
+    def buildNoGames(self):
+        self.draw.text((41, 22), f'No games MLB', font=self.fontSmallReg, fill=self.fillWhite)
 
     def buildGamePostponed(self, game):
         """Adds all aspects of the postponed screen to the image object.

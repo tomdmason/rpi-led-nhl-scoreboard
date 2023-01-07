@@ -149,7 +149,7 @@ class NhlGameRenderer(CommonRenderer):
 
             # If not in the SO and the time remaining is "END", then we know that we're in intermission. Don't add time remaininig to the image.
             else:
-                self.draw.text((self.firstMiddleCol+2,10), "INT", font=self.fontSmallReg, fill=self.fillWhite)
+                self.draw.text((self.firstMiddleCol+2,12), "INT", font=self.fontSmallReg, fill=self.fillWhite)
 
     def displayTimeRemaing(self, timeRemaining):
         """Adds the remaining time in the period to the image. Takes into account diffent widths of time remaining.
