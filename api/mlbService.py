@@ -81,12 +81,17 @@ class MlbService(LeagueApiInterface):
             if 'third' in linescore['offense']:
                 third = linescore['offense']['third']
 
-            awayStartingPitcher = gameData['probablePitchers']['away']['id']
-            awayStartingPitcher = gameData['players'][f'ID{awayStartingPitcher}']['lastName']
+            if 'away' in gameData['probablePitchers']:
+                awayStartingPitcher = gameData['probablePitchers']['away']['id']
+                awayStartingPitcher = gameData['players'][f'ID{awayStartingPitcher}']['lastName']
+            else:
+                awayStartingPitcher = 'TBD'
 
-            homeStartingPitcher = gameData['probablePitchers']['home']['id']
-            homeStartingPitcher = gameData['players'][f'ID{homeStartingPitcher}']['lastName']
-
+            if 'home' in gameData['probablePitchers']:
+                homeStartingPitcher = gameData['probablePitchers']['home']['id']
+                homeStartingPitcher = gameData['players'][f'ID{homeStartingPitcher}']['lastName']
+            else:
+                homeStartingPitcher = 'TBD'
 
             # Prep the dict data.
             return {
