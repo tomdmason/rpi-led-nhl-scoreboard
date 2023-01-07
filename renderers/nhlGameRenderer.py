@@ -196,6 +196,6 @@ class NhlGameRenderer(CommonRenderer):
         fillHome = self.fillWhite if awayScore > homeScore or awayScore == homeScore else self.fillRed
         fillAway = self.fillWhite if awayScore < homeScore or awayScore == homeScore else self.fillRed
 
-        self.draw.text((26,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
+        self.draw.text((46,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
         
-        self.draw.text((26,16), f'{homeScore}', font=self.fontLargeBold, fill=fillHome)
+        self.draw.text((46,16), f'{homeScore}', font=self.fontLargeBold, fill=fillHome)
