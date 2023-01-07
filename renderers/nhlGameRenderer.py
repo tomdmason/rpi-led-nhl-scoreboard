@@ -37,7 +37,7 @@ class NhlGameRenderer(CommonRenderer):
         startTime = str(startTime) # Cast to a string for easier parsing.
 
         
-        self.draw.text((self.firstMiddleCol+1,0), startTime, font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,12), startTime, font=self.fontSmallReg, fill=self.fillWhite)
         
 
     def buildGameInProgress(self, game):
