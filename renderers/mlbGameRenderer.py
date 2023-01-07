@@ -13,11 +13,11 @@ class MlbGameRenderer(CommonRenderer):
             # self.buildGamePostponed(game)
 
         # If the game has yet to begin, build the game not started screen.
-        # elif game['Status'] == "Preview":
-            # self.buildGameNotStarted(game)
+        if game['Status'] == "Preview":
+            self.buildGameNotStarted(game)
 
         # If the game is over, build the final score screen.
-        if game['status'] == "Final":
+        elif game['status'] == "Final":
             self.buildGameOver(game)
         
         # Otherwise, the game is in progress. Build the game in progress screen.
@@ -33,7 +33,18 @@ class MlbGameRenderer(CommonRenderer):
             game (dict): All information for a specific game.
         """
 
-        print('Not implemented')
+         # Add "Today" to the image.
+        self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+5,2), "o", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+9,2), "d", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+13,2), "a", font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+17,2), "y", font=self.fontSmallReg, fill=self.fillWhite)
+
+        time = game['dateTime']['time']
+        ampm = game['dateTime']['ampm']
+        self.draw.text((self.firstMiddleCol+1,10), f'{time}{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        print(game['probablePitchers'])
 
     def buildGameInProgress(self, game):
         """Adds all aspects of the game in progress screen to the image object.
