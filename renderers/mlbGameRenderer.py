@@ -36,19 +36,12 @@ class MlbGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
-         # Add "Today" to the image.
-        self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+5,2), "o", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+9,2), "d", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+13,2), "a", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+17,2), "y", font=self.fontSmallReg, fill=self.fillWhite)
-
         time = game['dateTime']['time']
         ampm = game['dateTime']['ampm']
-        self.draw.text((self.firstMiddleCol+1,10), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,2), f'{time} {ampm}', font=self.fontSmallReg, fill=self.fillWhite)
 
         
-        self.draw.text((self.firstMiddleCol+1,16), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+1,12), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
         self.draw.text((self.firstMiddleCol+1,24), game['homeStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
 
 
