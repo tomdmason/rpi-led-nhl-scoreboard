@@ -43,11 +43,11 @@ class MlbGameRenderer(CommonRenderer):
 
         self.draw.text((self.firstMiddleCol+spacer,0), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
 
-        self.draw.rectangle(((self.firstMiddleCol+spacer+2,4),(self.firstMiddleCol+spacer+2,4)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+spacer+2,6),(self.firstMiddleCol+spacer+2,6)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+4,4),(self.firstMiddleCol+spacer+2,4)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+4,6),(self.firstMiddleCol+spacer+2,6)), fill=self.fillWhite)
 
         self.draw.text((self.firstMiddleCol+spacer+7,0), f'{time[1]}', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+spacer+17,0), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+spacer+18,0), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
 
         
         self.draw.text((self.firstMiddleCol+1,8), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
