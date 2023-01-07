@@ -13,7 +13,7 @@ class MlbGameRenderer(CommonRenderer):
             self.buildGamePostponed(game)
 
         # If the game has yet to begin, build the game not started screen.
-        if game['status'] == "Preview":
+        elif game['status'] == "Preview":
             self.buildGameNotStarted(game)
 
         # If the game is over, build the final score screen.
@@ -136,7 +136,7 @@ class MlbGameRenderer(CommonRenderer):
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         # Add "PPD" to the image.
-        self.draw.text((self.firstMiddleCol+2,0), "PPD", font=self.fontMedReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+12,12), "PPD", font=self.fontMedReg, fill=self.fillWhite)
 
     
 
