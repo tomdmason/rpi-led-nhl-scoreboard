@@ -31,42 +31,19 @@ class NhlGameRenderer(CommonRenderer):
         # Add the logos of the teams inivolved to the image.
         self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
-        # Add "Today" to the image.
-        self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+5,2), "o", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+9,2), "d", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+13,2), "a", font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+17,2), "y", font=self.fontSmallReg, fill=self.fillWhite)
-
-        # Add "@" to the image.
-        self.draw.text((self.firstMiddleCol+6,8), "@", font=self.fontLargeReg, fill=self.fillWhite)
-
         # Extract the start time in 12 hour format.
         startTime = game['startTimeLocal']
-        startTime = startTime.time().strftime('%I:%M')
+        startTime = startTime.time().strftime('%I:%M %p')
         startTime = str(startTime) # Cast to a string for easier parsing.
 
-        # Add the start time to the image. Adjust placement for times before/after 10pm local time.
-        if startTime[0] == "1": # 10pm or later.
-            # Hour.
-            self.draw.text((self.firstMiddleCol,22), startTime[0], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+5,22), startTime[1], font=self.fontSmallReg, fill=self.fillWhite)
-            # Colon (manual dots since the font's colon looks funny).
-            self.draw.rectangle(((self.firstMiddleCol+10,25),(self.firstMiddleCol+10,25)), fill=self.fillWhite)
-            self.draw.rectangle(((self.firstMiddleCol+10,27),(self.firstMiddleCol+10,27)), fill=self.fillWhite)
-            # Minutes.
-            self.draw.text((self.firstMiddleCol+12,22), startTime[3], font=self.fontSmallReg, fill=self.fillWhite) # Skipping startTime[2] as that would be the colon.
-            self.draw.text((self.firstMiddleCol+17,22), startTime[4], font=self.fontSmallReg, fill=self.fillWhite)
-
-        else: # 9pm or earlier.
-            # Hour.
-            self.draw.text((self.firstMiddleCol+3,22), startTime[1], font=self.fontSmallReg, fill=self.fillWhite)
-            # Colon (manual dots since the font's colon looks funny).
-            self.draw.rectangle(((self.firstMiddleCol+8,25),(self.firstMiddleCol+8,25)), fill=self.fillWhite)
-            self.draw.rectangle(((self.firstMiddleCol+8,27),(self.firstMiddleCol+8,27)), fill=self.fillWhite)
-            # Minutes.
-            self.draw.text((self.firstMiddleCol+10,22), startTime[3], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+15,22), startTime[4], font=self.fontSmallReg, fill=self.fillWhite)
+        # Hour.
+        self.draw.text((self.firstMiddleCol+3,22), startTime[1], font=self.fontSmallReg, fill=self.fillWhite)
+        # Colon (manual dots since the font's colon looks funny).
+        self.draw.rectangle(((self.firstMiddleCol+8,25),(self.firstMiddleCol+8,25)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+8,27),(self.firstMiddleCol+8,27)), fill=self.fillWhite)
+        # Minutes.
+        self.draw.text((self.firstMiddleCol+10,22), startTime[3], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+15,22), startTime[4], font=self.fontSmallReg, fill=self.fillWhite)
 
     def buildGameInProgress(self, game):
         """Adds all aspects of the game in progress screen to the image object.
