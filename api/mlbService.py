@@ -81,7 +81,7 @@ class MlbService(LeagueApiInterface):
             third = linescore['offense']['third']
 
         print ('GAME')
-        print( gameData['dateTime'])
+        print( gameData['datetime'])
         print( gameData['probablePitchers'])
         try:
             # Prep the dict data.
@@ -107,7 +107,7 @@ class MlbService(LeagueApiInterface):
                 'onFirst': first,
                 'onSecond': second,
                 'onThird': third,
-                'dateTime': gameData['dateTime'],
+                'dateTime': gameData['datetime'],
                 'probablePitchers': gameData['probablePitchers'],
                 'league': "mlb"
             }                    
