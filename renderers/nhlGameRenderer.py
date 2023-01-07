@@ -32,11 +32,20 @@ class NhlGameRenderer(CommonRenderer):
         self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
         # Extract the start time in 12 hour format.
-        startTime = game['startTimeLocal']
-        startTime = startTime.time().strftime('%-I:%M %p')
-        startTime = str(startTime) # Cast to a string for easier parsing.
-        
-        self.draw.text((self.firstMiddleCol+1,12), startTime, font=self.fontSmallReg, fill=self.fillWhite)
+        time = game['startTimeLocal']
+        time = time.time().strftime('%-I:%M:%p')
+        time = str(time) # Cast to a string for easier parsing.
+        time = time.split(':')
+
+        spacer = 6 if int(time[0]) > 9 else 1
+
+        self.draw.text((self.firstMiddleCol+1, 12), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        self.draw.rectangle(((self.firstMiddleCol+spacer+5,15),(self.firstMiddleCol+spacer+5,15)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+spacer+5,17),(self.firstMiddleCol+spacer+5,17)), fill=self.fillWhite)
+
+        self.draw.text((self.firstMiddleCol+spacer+7,12), f'{time[1]}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+spacer+18,12), f'{time[2]}', font=self.fontSmallReg, fill=self.fillWhite)
         
 
     def buildGameInProgress(self, game):
@@ -140,7 +149,7 @@ class NhlGameRenderer(CommonRenderer):
 
             # If not in the SO and the time remaining is "END", then we know that we're in intermission. Don't add time remaininig to the image.
             else:
-                self.draw.text((self.firstMiddleCol+2,8), "INT", font=self.fontSmallReg, fill=self.fillWhite)
+                self.draw.text((self.firstMiddleCol+2,10), "INT", font=self.fontSmallReg, fill=self.fillWhite)
 
     def displayTimeRemaing(self, timeRemaining):
         """Adds the remaining time in the period to the image. Takes into account diffent widths of time remaining.
