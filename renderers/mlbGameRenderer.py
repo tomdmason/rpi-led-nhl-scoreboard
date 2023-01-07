@@ -43,7 +43,7 @@ class MlbGameRenderer(CommonRenderer):
         
         self.draw.text((self.firstMiddleCol+1,8), game['awayStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
 
-        self.draw.text((40,16), 'vs', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+3,16), 'vs', font=self.fontSmallReg, fill=self.fillWhite)
 
         self.draw.text((self.firstMiddleCol+1,24), game['homeStartingPitcher'], font=self.fontSmallReg, fill=self.fillWhite)
 
