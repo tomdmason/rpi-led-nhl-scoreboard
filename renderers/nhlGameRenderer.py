@@ -6,15 +6,15 @@ class NhlGameRenderer(CommonRenderer):
 
     def render(self, game):
         # If the game is postponed, build the postponed screen.
-        if game['Detailed Status'] == "Postponed":
+        if game['detailedStatus'] == "Postponed":
             self.buildGamePostponed(game)
 
         # If the game has yet to begin, build the game not started screen.
-        elif game['Status'] == "Preview":
+        elif game['status'] == "Preview":
             self.buildGameNotStarted(game)
 
         # If the game is over, build the final score screen.
-        elif game['Status'] == "Final":
+        elif game['status'] == "Final":
             self.buildGameOver(game)
         
         # Otherwise, the game is in progress. Build the game in progress screen.
@@ -29,7 +29,7 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
         # Add "Today" to the image.
         self.draw.text((self.firstMiddleCol+1,0), "T", font=self.fontMedReg, fill=self.fillWhite)
@@ -42,7 +42,7 @@ class NhlGameRenderer(CommonRenderer):
         self.draw.text((self.firstMiddleCol+6,8), "@", font=self.fontLargeReg, fill=self.fillWhite)
 
         # Extract the start time in 12 hour format.
-        startTime = game['Start Time Local']
+        startTime = game['startTimeLocal']
         startTime = startTime.time().strftime('%I:%M')
         startTime = str(startTime) # Cast to a string for easier parsing.
 
@@ -78,13 +78,13 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams inivolved to the image.
-        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
         # Add the period to the image.
-        self.displayPeriod(game['Period Number'], game['Period Name'], game['Period Time Remaining'])
+        self.displayPeriod(game['periodNumber'], game['periodName'], game['periodTimeRemaining'])
 
         # Add the current score to the image. Note if either team scored.
-        self.displayScore(game['Away Score'], game['Home Score'])
+        self.displayScore(game['awayScore'], game['homeScore'])
 
     def buildGameOver(self, game):
         """Adds all aspects of the game over screen to the image object.
@@ -95,7 +95,7 @@ class NhlGameRenderer(CommonRenderer):
         """
 
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
         # Add "Final" to the image.
         self.draw.text((self.firstMiddleCol+1,0), "F", font=self.fontMedReg, fill=self.fillWhite)
@@ -106,13 +106,13 @@ class NhlGameRenderer(CommonRenderer):
 
         # Check if the game ended in overtime or a shootout.
         # If so, add that to the image.
-        if game['Period Name'] == "OT" or game['Period Name'] == "SO":
-            self.draw.text((self.firstMiddleCol+6,9), game['Period Name'], font=self.fontMedReg, fill=self.fillWhite)
-        elif game['Period Number'] > 4: # If the game ended in 2OT or later.
-            self.draw.text((self.firstMiddleCol+3,9), game["Period Name"], font=self.fontMedReg, fill=self.fillWhite)
+        if game['periodName'] == "OT" or game['periodName'] == "SO":
+            self.draw.text((self.firstMiddleCol+6,9), game['periodName'], font=self.fontMedReg, fill=self.fillWhite)
+        elif game['periodNumber'] > 4: # If the game ended in 2OT or later.
+            self.draw.text((self.firstMiddleCol+3,9), game["periodName"], font=self.fontMedReg, fill=self.fillWhite)
 
         # Add the current score to the image.
-        self.displayScore(game['Away Score'],game['Home Score'])
+        self.displayScore(game['awayScore'],game['homeScore'])
 
     def buildGamePostponed(self, game):
         """Adds all aspects of the postponed screen to the image object.
@@ -122,7 +122,7 @@ class NhlGameRenderer(CommonRenderer):
         """
         
         # Add the logos of the teams involved to the image.
-        self.displayLogos(game['league'],game['Away Abbreviation'],game['Home Abbreviation'])
+        self.displayLogos(game['league'],game['awayAbbreviation'],game['homeAbbreviation'])
 
         # Add "PPD" to the image.
         self.draw.text((self.firstMiddleCol+2,0), "PPD", font=self.fontMedReg, fill=self.fillWhite)
