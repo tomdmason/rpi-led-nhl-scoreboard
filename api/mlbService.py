@@ -47,11 +47,15 @@ class MlbService(LeagueApiInterface):
 
                 # Append the dict to the games list.
                 games.append(gameDict)
-                if len(games) == 2:
-                    break
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
                 games.sort(key=lambda x:x['gameId'])
+
+            if len(games) == 0:
+                games.append({
+                    'gameId': 'NO_GAMES',
+                    'league': "mlb"
+                })
         return games
 
     def getGameDetails(self, gameId):
@@ -90,7 +94,7 @@ class MlbService(LeagueApiInterface):
                 'awayHits': linescore['teams']['away']['hits'],
                 'homeErrors': boxscore['teams']['home']['teamStats']['fielding']['errors'],
                 'awayErrors': boxscore['teams']['away']['teamStats']['fielding']['errors'],
-                'status': 'ongoing', # gameData['status']['abstractGameState'],
+                'status': gameData['status']['abstractGameState'],
                 'currentInning': linescore['currentInning'],
                 'inningState': linescore['inningState'],
                 'balls': linescore['balls'],
