@@ -149,41 +149,14 @@ class NhlGameRenderer(CommonRenderer):
         Args:
             timeRemaining (string): The time remaining in the period in "MM:SS" format. For times less than 10 minutes, the minutes should have a leading zero (e.g 09:59).
         """
-
-        # If time left is 20:00 (period about to start), add the time to the image with specific spacing.
-        if timeRemaining[0] == "2": # If the first digit of the time is 2.
-            # Minutes.
-            self.draw.text((self.firstMiddleCol+1,9), timeRemaining[0], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+5,9), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
-            # Colon.
-            self.draw.rectangle(((self.firstMiddleCol+10,12),(self.firstMiddleCol+10,12)), fill=self.fillWhite)
-            self.draw.rectangle(((self.firstMiddleCol+10,14),(self.firstMiddleCol+10,14)), fill=self.fillWhite)
-            # Seconds.
-            self.draw.text((self.firstMiddleCol+12,9), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite) # Skipping "2" as it's the colon.
-            self.draw.text((self.firstMiddleCol+16,9), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
-        
-        # If time left is between 10 and 20 minutes, add the time to the image with different spacing.
-        elif timeRemaining[0] == "1": # If the first digit of the time is 1.
-            # Minutes.
-            self.draw.text((self.firstMiddleCol,9), timeRemaining[0], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+5,9), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
-            # Colon.
-            self.draw.rectangle(((self.firstMiddleCol+10,12),(self.firstMiddleCol+10,12)), fill=self.fillWhite)
-            self.draw.rectangle(((self.firstMiddleCol+10,14),(self.firstMiddleCol+10,14)), fill=self.fillWhite)
-            # Seconds.
-            self.draw.text((self.firstMiddleCol+12,9), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+17,9), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
-
-        # Otherwise, time is less than 10 minutes. Add the time to the image with spacing for a single digit minute.
-        else:
-            # Minutes.
-            self.draw.text((self.firstMiddleCol+3,9), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
-            # Colon.
-            self.draw.rectangle(((self.firstMiddleCol+8,12),(self.firstMiddleCol+8,12)), fill=self.fillWhite)
-            self.draw.rectangle(((self.firstMiddleCol+8,14),(self.firstMiddleCol+8,14)), fill=self.fillWhite)
-            # Seconds.
-            self.draw.text((self.firstMiddleCol+10,9), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite)
-            self.draw.text((self.firstMiddleCol+15,9), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
+        # Minutes.
+        self.draw.text((self.firstMiddleCol+3,12), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
+        # Colon.
+        self.draw.rectangle(((self.firstMiddleCol+8,15),(self.firstMiddleCol+8,12)), fill=self.fillWhite)
+        self.draw.rectangle(((self.firstMiddleCol+8,17),(self.firstMiddleCol+8,14)), fill=self.fillWhite)
+        # Seconds.
+        self.draw.text((self.firstMiddleCol+10,12), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+15,12), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
 
     def displayScore(self, awayScore, homeScore):
         """Add the score for both teams to the image object.
@@ -196,6 +169,6 @@ class NhlGameRenderer(CommonRenderer):
         fillHome = self.fillWhite if awayScore > homeScore or awayScore == homeScore else self.fillRed
         fillAway = self.fillWhite if awayScore < homeScore or awayScore == homeScore else self.fillRed
 
-        self.draw.text((46,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
+        self.draw.text((50,-1), f'{awayScore}', font=self.fontLargeBold, fill=fillAway)
         
-        self.draw.text((46,16), f'{homeScore}', font=self.fontLargeBold, fill=fillHome)
+        self.draw.text((50,16), f'{homeScore}', font=self.fontLargeBold, fill=fillHome)
