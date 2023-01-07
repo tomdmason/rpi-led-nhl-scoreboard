@@ -136,7 +136,7 @@ class MlbGameRenderer(CommonRenderer):
         self.displayLogos(game['league'],game['awayAbbrev'],game['homeAbbrev'])
 
         # Add "PPD" to the image.
-        self.draw.text((self.firstMiddleCol+12,12), "PPD", font=self.fontMedReg, fill=self.fillWhite)
+        self.draw.text((self.firstMiddleCol+12,10), "PPD", font=self.fontMedReg, fill=self.fillWhite)
 
     
 
