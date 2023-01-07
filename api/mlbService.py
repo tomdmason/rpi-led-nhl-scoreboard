@@ -50,12 +50,13 @@ class MlbService(LeagueApiInterface):
 
                 # Sort list by Game ID. Ensures order doesn't cahnge as games end.
                 games.sort(key=lambda x:x['gameId'])
-
-            if len(games) == 0:
-                games.append({
-                    'gameId': 'NO_GAMES',
-                    'league': "mlb"
-                })
+               
+        else:
+            print('No Games today')
+            games.append({
+                'gameId': 'NO_GAMES',
+                'league': "mlb"
+            })
         return games
 
     def getGameDetails(self, gameId):
