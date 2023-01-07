@@ -80,6 +80,9 @@ class MlbService(LeagueApiInterface):
         if 'third' in linescore['offense']:
             third = linescore['offense']['third']
 
+        print ('GAME')
+        print( gameData['dateTime'])
+        print( gameData['probablePitchers'])
         try:
             # Prep the dict data.
             return {
