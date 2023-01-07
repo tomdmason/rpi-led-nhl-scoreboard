@@ -39,8 +39,6 @@ class MlbGameRenderer(CommonRenderer):
         time = game['dateTime']['time'].split(':')
         ampm = game['dateTime']['ampm']
 
-        time[0] = '12'
-
         spacer = 6 if int(time[0]) > 9 else 1
 
         self.draw.text((self.firstMiddleCol+1, 0), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
