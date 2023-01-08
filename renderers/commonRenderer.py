@@ -60,3 +60,16 @@ class CommonRenderer:
         # Logos will be bounded by the text region, and be centered vertically.
         self.image.paste(awayLogo, ((10 - math.floor(awayLogoWidth / 2)), 8 - math.ceil(awayLogoHeight / 2)))
         self.image.paste(homeLogo, ((10 - math.floor(homeLogoWidth / 2)), 24 - math.floor(homeLogoHeight / 2)))
+
+    def displayTime(self, time: str, rootPos: tuple):
+        posX, posY = rootPos
+        hrs, mins = time.split(':')
+
+        spacer = 6 if int(hrs) > 9 else 1
+
+        self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        self.draw.rectangle(((posX + spacer + 5, posY + 3),(posX + spacer + 5, posY + 3)), fill=self.fillWhite)
+        self.draw.rectangle(((posX + spacer + 5, posY + 5),(posX + spacer + 5, posY + 5)), fill=self.fillWhite)
+
+        self.draw.text((posX + spacer + 7, posY), f'{mins}', font=self.fontSmallReg, fill=self.fillWhite)
