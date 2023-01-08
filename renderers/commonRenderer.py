@@ -64,7 +64,8 @@ class CommonRenderer:
     def displayTime(self, time: str, rootPos: tuple):
         posX, posY = rootPos
         hrs, mins = time.split(':')
-        mins, ampm = mins.split(' ')
+        mins, *ampm = mins.split(' ')
+        ampm = ampm[0] if ampm else ''
 
         spacer = 6 if int(hrs) > 9 else 1
 
