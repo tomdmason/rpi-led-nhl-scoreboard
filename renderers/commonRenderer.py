@@ -71,9 +71,9 @@ class CommonRenderer:
 
         spacer = 6 if int(hrs) > 9 else 1
 
-        if hrs.startswith('0') and hrs != '0':
+        if hrs.startswith('0') and int(hrs) <= 9:
             print('More spcae')
-            spacer = 12
+            # spacer = 6
             print(spacer)
 
         self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
