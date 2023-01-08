@@ -30,7 +30,7 @@ class NhlGameRenderer(CommonRenderer):
             self.buildGameInProgress(game)
 
     def buildNoGames(self):
-        logo = Image.open("assets/images/NHL_Logo.png")
+        logo = Image.open("assets/images/NHL_Logo_Simplified.png")
         logo = imageUtil.cropImage(logo)
         logo.thumbnail((32,32))
         self.image.paste(logo, (16, 4))
