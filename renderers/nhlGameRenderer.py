@@ -151,8 +151,6 @@ class NhlGameRenderer(CommonRenderer):
         # If not in the SO, and the period not over, add the time remaining in the period to the image.
         if periodName != "SO":
             if timeRemaining != "END":
-                print('Time')
-                print(timeRemaining)
                 self.displayTime(timeRemaining, (self.firstMiddleCol+3, 12)) # Adds the time remaining in the period to the image.
 
             # If not in the SO and the time remaining is "END", then we know that we're in intermission. Don't add time remaininig to the image.
