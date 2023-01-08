@@ -64,6 +64,7 @@ class CommonRenderer:
     def displayTime(self, time: str, rootPos: tuple):
         posX, posY = rootPos
         hrs, mins = time.split(':')
+        mins, ampm = mins.split(' ')
 
         spacer = 6 if int(hrs) > 9 else 1
 
@@ -73,3 +74,4 @@ class CommonRenderer:
         self.draw.rectangle(((posX + spacer + 5, posY + 5),(posX + spacer + 5, posY + 5)), fill=self.fillWhite)
 
         self.draw.text((posX + spacer + 7, posY), f'{mins}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.draw.text((posX + spacer + 18, posY), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
