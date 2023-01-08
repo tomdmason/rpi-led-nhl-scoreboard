@@ -32,7 +32,7 @@ class NhlGameRenderer(CommonRenderer):
     def buildNoGames(self):
         logo = Image.open("assets/images/NHL_Logo_Simplified.png")
         logo = imageUtil.cropImage(logo)
-        logo.thumbnail((32,32))
+        logo.thumbnail((24, 24))
         self.image.paste(logo, (16, 4))
         self.draw.text((12, 22), f'No games', font=self.fontSmallReg, fill=self.fillWhite)
 
