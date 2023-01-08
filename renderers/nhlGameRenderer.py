@@ -48,19 +48,10 @@ class NhlGameRenderer(CommonRenderer):
 
         # Extract the start time in 12 hour format.
         time = game['startTimeLocal']
-        time = time.time().strftime('%-I:%M:%p')
+        time = time.time().strftime('%-I:%M %p')
         time = str(time) # Cast to a string for easier parsing.
-        time = time.split(':')
 
-        spacer = 6 if int(time[0]) > 9 else 1
-
-        self.draw.text((self.firstMiddleCol+1, 12), f'{time[0]}', font=self.fontSmallReg, fill=self.fillWhite)
-
-        self.draw.rectangle(((self.firstMiddleCol+spacer+5,15),(self.firstMiddleCol+spacer+5,15)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+spacer+5,17),(self.firstMiddleCol+spacer+5,17)), fill=self.fillWhite)
-
-        self.draw.text((self.firstMiddleCol+spacer+7,12), f'{time[1]}', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+spacer+18,12), f'{time[2]}', font=self.fontSmallReg, fill=self.fillWhite)
+        self.displayTime(time, (self.firstMiddleCol+1, 12))
         
 
     def buildGameInProgress(self, game):
@@ -160,27 +151,12 @@ class NhlGameRenderer(CommonRenderer):
         # If not in the SO, and the period not over, add the time remaining in the period to the image.
         if periodName != "SO":
             if timeRemaining != "END":
-                self.displayTimeRemaing(timeRemaining) # Adds the time remaining in the period to the image.
+                self.displayTime(timeRemaining, (self.firstMiddleCol+3, 12)) # Adds the time remaining in the period to the image.
 
             # If not in the SO and the time remaining is "END", then we know that we're in intermission. Don't add time remaininig to the image.
             else:
                 self.draw.text((self.firstMiddleCol+2,12), "INT", font=self.fontSmallReg, fill=self.fillWhite)
-
-    def displayTimeRemaing(self, timeRemaining):
-        """Adds the remaining time in the period to the image. Takes into account diffent widths of time remaining.
-
-        Args:
-            timeRemaining (string): The time remaining in the period in "MM:SS" format. For times less than 10 minutes, the minutes should have a leading zero (e.g 09:59).
-        """
-        # Minutes.
-        self.draw.text((self.firstMiddleCol+3,12), timeRemaining[1], font=self.fontSmallReg, fill=self.fillWhite)
-        # Colon.
-        self.draw.rectangle(((self.firstMiddleCol+8,15),(self.firstMiddleCol+8,15)), fill=self.fillWhite)
-        self.draw.rectangle(((self.firstMiddleCol+8,17),(self.firstMiddleCol+8,17)), fill=self.fillWhite)
-        # Seconds.
-        self.draw.text((self.firstMiddleCol+10,12), timeRemaining[3], font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((self.firstMiddleCol+15,12), timeRemaining[4], font=self.fontSmallReg, fill=self.fillWhite)
-
+        
     def displayScore(self, awayScore, homeScore):
         """Add the score for both teams to the image object.
 
