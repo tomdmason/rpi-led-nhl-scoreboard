@@ -65,12 +65,13 @@ class CommonRenderer:
         posX, posY = rootPos
         hrs, mins = time.split(':')
         mins, *ampm = mins.split(' ')
-        ampm = ampm[0] if ampm else ''
 
         spacer = 6 if int(hrs) > 9 else 1
 
         if hrs.startswith('0') and hrs != '0':
+            print('More spcae')
             spacer = spacer + spacer
+            print(spacer)
 
         self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
 
@@ -78,4 +79,6 @@ class CommonRenderer:
         self.draw.rectangle(((posX + spacer + 5, posY + 5),(posX + spacer + 5, posY + 5)), fill=self.fillWhite)
 
         self.draw.text((posX + spacer + 7, posY), f'{mins}', font=self.fontSmallReg, fill=self.fillWhite)
-        self.draw.text((posX + spacer + 18, posY), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+
+        if ampm:
+            self.draw.text((posX + spacer + 18, posY), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
