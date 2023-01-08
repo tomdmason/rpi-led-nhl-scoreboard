@@ -69,6 +69,9 @@ class CommonRenderer:
 
         spacer = 6 if int(hrs) > 9 else 1
 
+        if hrs.startswith('0') and hrs != '0':
+            spacer = spacer + spacer
+
         self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
 
         self.draw.rectangle(((posX + spacer + 5, posY + 3),(posX + spacer + 5, posY + 3)), fill=self.fillWhite)
