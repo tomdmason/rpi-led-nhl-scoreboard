@@ -63,6 +63,9 @@ class CommonRenderer:
 
     def displayTime(self, time: str, rootPos: tuple):
         posX, posY = rootPos
+
+        time = '00:56'
+
         hrs, mins = time.split(':')
         mins, *ampm = mins.split(' ')
 
