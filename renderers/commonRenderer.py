@@ -81,4 +81,4 @@ class CommonRenderer:
         self.draw.text((posX + spacer + 7, posY), f'{mins}', font=self.fontSmallReg, fill=self.fillWhite)
 
         if ampm:
-            self.draw.text((posX + spacer + 18, posY), f'{ampm}', font=self.fontSmallReg, fill=self.fillWhite)
+            self.draw.text((posX + spacer + 18, posY), f'{ampm[0]}', font=self.fontSmallReg, fill=self.fillWhite)
