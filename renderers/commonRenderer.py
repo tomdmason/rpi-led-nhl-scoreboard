@@ -63,15 +63,12 @@ class CommonRenderer:
 
     def displayTime(self, time: str, rootPos: tuple):
         posX, posY = rootPos
-
-        time = '0:56'
-
         hrs, mins = time.split(':')
         mins, *ampm = mins.split(' ')
 
         spacer = 6 if int(hrs) > 9 else 1
 
-        if hrs.startswith('0') and int(hrs) <= 9:
+        if hrs.startswith('0') and hrs != '00' and int(hrs) <= 9:
             print('More spcae')
             spacer = spacer + 5
             print(spacer)

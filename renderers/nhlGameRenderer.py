@@ -148,7 +148,8 @@ class NhlGameRenderer(CommonRenderer):
         else:
             self.draw.text((self.firstMiddleCol+3,2), periodName, font=self.fontSmallReg, fill=self.fillWhite)
 
-        self.displayTime(timeRemaining, (self.firstMiddleCol+3, 22)) # Adds the time remaining in the period to the image.
+        self.displayTime('0:56', (self.firstMiddleCol+3, 22)) # Adds the time remaining in the period to the image.
+
         # If not in the SO, and the period not over, add the time remaining in the period to the image.
         if periodName != "SO":
             if timeRemaining != "END":
