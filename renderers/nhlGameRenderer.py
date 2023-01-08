@@ -33,7 +33,7 @@ class NhlGameRenderer(CommonRenderer):
         logo = Image.open("assets/images/NHL_Logo_Simplified.png")
         logo = imageUtil.cropImage(logo)
         logo.thumbnail((22, 22))
-        self.image.paste(logo, (20, 2))
+        self.image.paste(logo, (22, 2))
         self.draw.text((12, 22), f'No games', font=self.fontSmallReg, fill=self.fillWhite)
 
     def buildGameNotStarted(self, game):
