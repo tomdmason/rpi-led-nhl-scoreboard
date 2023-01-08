@@ -67,9 +67,7 @@ class CommonRenderer:
         mins, *ampm = mins.split(' ')
         ampm = ampm[0] if ampm else ''
 
-        print(hrs)
-        print( hrs.startswith('0'))
-        spacer = 6 if int(hrs) > 9 and hrs.startswith('0') == True else 1
+        spacer = 6 if int(hrs) > 9 else 1
 
         self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
 
