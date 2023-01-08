@@ -70,7 +70,7 @@ class CommonRenderer:
 
         if hrs.startswith('0') and hrs != '0':
             print('More spcae')
-            spacer = spacer + spacer
+            spacer = 12
             print(spacer)
 
         self.draw.text((posX + 1, posY), f'{hrs}', font=self.fontSmallReg, fill=self.fillWhite)
