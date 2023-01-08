@@ -111,7 +111,7 @@ class MlbService(LeagueApiInterface):
                 'awayHits': linescore['teams']['away']['hits'],
                 'homeErrors': boxscore['teams']['home']['teamStats']['fielding']['errors'],
                 'awayErrors': boxscore['teams']['away']['teamStats']['fielding']['errors'],
-                'status': 'Prview', #gameData['status']['abstractGameState'],
+                'status': 'Preview', #gameData['status']['abstractGameState'],
                 'currentInning':  linescore['currentInning'],
                 'inningState': linescore['inningState'],
                 'balls': linescore['balls'],
